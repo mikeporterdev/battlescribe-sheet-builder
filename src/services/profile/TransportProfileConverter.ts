@@ -1,17 +1,28 @@
-import ProfileConverter from './AbstractProfileConverter';
-import { TransportProfile, BSTransportCharacteristic, TypeName } from '../types';
+import ProfileConverter from "./AbstractProfileConverter";
+import {
+  BSTransportCharacteristic,
+  TransportProfile,
+  TypeName,
+} from "../types";
 
-class TransportProfileConverter extends ProfileConverter<TransportProfile, BSTransportCharacteristic> {
+class TransportProfileConverter extends ProfileConverter<
+  TransportProfile,
+  BSTransportCharacteristic
+> {
   constructor() {
     super({
       typeName: TypeName.TRANSPORT,
-      name: '-',
-      capacity: '-'
+      name: "-",
+      capacity: "-",
     });
   }
 
-  protected getProperty(bsCharacteristic: BSTransportCharacteristic): Partial<TransportProfile> {
-    return bsCharacteristic.$.name === 'Capacity' ? { capacity: bsCharacteristic._ } : {};
+  protected getProperty(
+    bsCharacteristic: BSTransportCharacteristic,
+  ): Partial<TransportProfile> {
+    return bsCharacteristic.$.name === "Capacity"
+      ? { capacity: bsCharacteristic._ }
+      : {};
   }
 }
 

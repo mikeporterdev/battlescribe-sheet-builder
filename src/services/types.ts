@@ -1,4 +1,5 @@
 export type Roster = {
+  id;
   gameSystemName: string;
   name: string;
   costs: Cost[];
@@ -56,6 +57,7 @@ export enum BSCostType {
 }
 
 export type Force = {
+  id: string;
   name: string;
   catalogueName: string;
   publications: string[];
@@ -90,9 +92,11 @@ export type BSCategory = {
   };
 };
 
+export type SelectionType = "upgrade" | "unit" | "model";
 export type Selection = {
+  id: string;
   number: number;
-  type: "upgrade" | "unit" | "model";
+  type: SelectionType;
   customName?: string;
   customNotes?: string;
   name: string;
@@ -106,7 +110,7 @@ export type Selection = {
 export type BSSelection = {
   $: {
     number: string;
-    type: "upgrade" | "unit" | "model";
+    type: SelectionType;
     customName?: string;
     customNotes?: string;
     name: string;
@@ -132,6 +136,7 @@ export type BSRule = {
 };
 
 export interface Profile<T extends TypeName> {
+  id: string;
   typeName: T;
   name: string;
 }

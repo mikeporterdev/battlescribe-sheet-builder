@@ -1,37 +1,37 @@
 import {
-  BSRoster,
-  Roster,
-  CostType,
-  BSCostType,
-  Cost,
-  BSCost,
-  BSForce,
-  Force,
-  Category,
   BSCategory,
-  BSSelection,
-  Selection,
-  BSRule,
-  Rule,
-  BSProfile,
-  Profile,
   BSCharacteristic,
-  TypeName,
+  BSCost,
+  BSCostType,
+  BSForce,
+  BSProfile,
+  BSRoster,
+  BSRule,
+  BSSelection,
   CalculatedCosts,
+  Category,
+  Cost,
+  CostType,
+  Force,
+  Profile,
+  Roster,
+  Rule,
+  Selection,
+  TypeName,
 } from "./types";
 import {
-  isBSProfile,
+  isBSCategory,
   isBSCost,
   isBSCostLimit,
   isBSForce,
+  isBSProfile,
   isBSPublication,
   isBSRule,
   isBSSelection,
-  isBSCategory,
 } from "./guards";
 import RawBufferLoader from "./loader/RawBufferLoader";
 import ProfileFactory from "./profile/ProfileFactory";
-
+import { v4 as uuidv4 } from "uuid";
 export class Parser {
   public async parse(path: ArrayBuffer): Promise<Roster> {
     const rosterLoader = new RawBufferLoader(path);
@@ -52,16 +52,14 @@ export class Parser {
       forces: bsForces,
     } = bsRoster;
 
-    const roster: Partial<Roster> = {
+    return {
+      id: "roster",
       gameSystemName: $.gameSystemName,
       name: $.name,
+      costs: this.toCostArray(bsCosts),
+      costLimits: this.toCostArray(bsCostLimits),
+      forces: this.toForceArray(bsForces),
     };
-
-    roster.costs = this.toCostArray(bsCosts);
-    roster.costLimits = this.toCostArray(bsCostLimits);
-    roster.forces = this.toForceArray(bsForces);
-
-    return roster as Roster;
   }
 
   private calculateCosts(selections: Selection[]): CalculatedCosts {
@@ -126,26 +124,22 @@ export class Parser {
   private toForceArray(
     bsForces: Array<{ force: BSForce[] } | string>,
   ): Force[] {
-    const forces: Force[] = [];
-
-    bsForces?.forEach((bsForces) => {
-      if (isBSForce(bsForces)) {
-        bsForces.force.forEach((bsForce) => {
-          const force: Partial<Force> = {
+    const forces: Force[] =
+      bsForces?.filter(isBSForce).flatMap((bsForces) => {
+        return bsForces.force.map((bsForce) => {
+          const forceId = bsForce.$.name;
+          return {
+            id: forceId,
             name: bsForce.$.name,
             catalogueName: bsForce.$.catalogueName,
+            publications: this.toPublicationArray(bsForce.publications),
+            categories: this.toCategoryArray(bsForce.categories),
+            forces: this.toForceArray(bsForce.forces),
+            rules: this.toRuleArray(bsForce.rules),
+            selections: this.toSelectionArray(bsForce.selections),
           };
-
-          force.publications = this.toPublicationArray(bsForce.publications);
-          force.categories = this.toCategoryArray(bsForce.categories);
-          force.forces = this.toForceArray(bsForce.forces);
-          force.rules = this.toRuleArray(bsForce.rules);
-          force.selections = this.toSelectionArray(bsForce.selections);
-
-          forces.push(force as Force);
         });
-      }
-    });
+      }) ?? [];
 
     return forces;
   }
@@ -205,32 +199,31 @@ export class Parser {
   private toSelectionArray(
     bsSelections: Array<{ selection: BSSelection[] } | string>,
   ): Selection[] {
-    const selections: Selection[] = [];
-    bsSelections?.forEach((bsSelections) => {
-      if (isBSSelection(bsSelections)) {
-        bsSelections.selection.forEach((bsSelection) => {
-          const selection: Partial<Selection> = {
+    return (
+      bsSelections?.filter(isBSSelection).flatMap((bsSelections) => {
+        return bsSelections.selection.map((bsSelection) => {
+          const childSelections = this.toSelectionArray(bsSelection.selections);
+          const selection: Selection = {
+            id: uuidv4(),
             number: +bsSelection.$.number,
             type: bsSelection.$.type,
             name: bsSelection.$.name,
             customName: bsSelection.$.customName,
             customNotes: bsSelection.$.customNotes,
+            categories: this.toCategoryArray(bsSelection.categories),
+            rules: this.toRuleArray(bsSelection.rules),
+            profiles: this.toProfileArray(bsSelection.profiles),
+            selections: childSelections,
+            costs: this.toCostArray(
+              bsSelection.costs,
+              this.calculateCosts(childSelections),
+            ),
           };
 
-          selection.categories = this.toCategoryArray(bsSelection.categories);
-          selection.rules = this.toRuleArray(bsSelection.rules);
-          selection.profiles = this.toProfileArray(bsSelection.profiles);
-          selection.selections = this.toSelectionArray(bsSelection.selections);
-          selection.costs = this.toCostArray(
-            bsSelection.costs,
-            this.calculateCosts(selection.selections),
-          );
-
-          selections.push(selection as Selection);
+          return selection;
         });
-      }
-    });
-    return selections;
+      }) ?? []
+    );
   }
 
   private toProfileArray(

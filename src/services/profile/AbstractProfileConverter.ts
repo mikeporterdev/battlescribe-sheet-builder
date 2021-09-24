@@ -1,15 +1,19 @@
-import { Profile, TypeName, BSCharacteristic, BSProfile } from '../types';
-import { isBSCharacteristic } from '../guards';
+import { BSCharacteristic, BSProfile, Profile, TypeName } from "../types";
+import { isBSCharacteristic } from "../guards";
+import { v4 as uuidv4 } from "uuid";
 
-abstract class ProfileConverter<S extends Profile<TypeName>, T extends BSCharacteristic> {
+abstract class ProfileConverter<
+  S extends Profile<TypeName>,
+  T extends BSCharacteristic,
+> {
   private profile: S;
 
-  protected constructor(profile: S) {
-    this.profile = profile;
+  protected constructor(profile: Omit<S, "id">) {
+    this.profile = { ...profile, id: uuidv4() } as S;
   }
 
   convert(bsProfile: BSProfile<T>): S {
-    this.profile.name = bsProfile.$.name || '-';
+    this.profile.name = bsProfile.$.name || "-";
 
     bsProfile.characteristics.forEach((bsCharacteristic) => {
       if (isBSCharacteristic(bsCharacteristic)) {

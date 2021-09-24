@@ -1,33 +1,38 @@
-import { BSWeaponCharacteristic, WeaponProfile, TypeName } from '../types';
-import AbstractProfileConverter from './AbstractProfileConverter';
+import { BSWeaponCharacteristic, TypeName, WeaponProfile } from "../types";
+import AbstractProfileConverter from "./AbstractProfileConverter";
 
-class WeaponProfileConverter extends AbstractProfileConverter<WeaponProfile, BSWeaponCharacteristic> {
+class WeaponProfileConverter extends AbstractProfileConverter<
+  WeaponProfile,
+  BSWeaponCharacteristic
+> {
   constructor() {
     super({
       typeName: TypeName.WEAPON,
-      name: '-',
-      range: '-',
-      type: '-',
-      strength: '-',
-      armourPenetration: '-',
-      damage: '-',
-      abilities: '-'
+      name: "-",
+      range: "-",
+      type: "-",
+      strength: "-",
+      armourPenetration: "-",
+      damage: "-",
+      abilities: "-",
     });
   }
 
-  protected getProperty(bsCharacteristic: BSWeaponCharacteristic): Partial<WeaponProfile> {
+  protected getProperty(
+    bsCharacteristic: BSWeaponCharacteristic,
+  ): Partial<WeaponProfile> {
     switch (bsCharacteristic.$.name) {
-      case 'Range':
+      case "Range":
         return { range: bsCharacteristic._ };
-      case 'Type':
+      case "Type":
         return { type: bsCharacteristic._ };
-      case 'S':
+      case "S":
         return { strength: bsCharacteristic._ };
-      case 'AP':
+      case "AP":
         return { armourPenetration: bsCharacteristic._ };
-      case 'D':
+      case "D":
         return { damage: bsCharacteristic._ };
-      case 'Abilities':
+      case "Abilities":
         return { abilities: bsCharacteristic._ };
     }
   }
