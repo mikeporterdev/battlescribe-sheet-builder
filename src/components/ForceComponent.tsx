@@ -21,8 +21,6 @@ export const ForceComponent: React.FC<ForceComponentProps> = ({ force }) => {
     }
   });
 
-  console.log(selectionsByCategory);
-
   return (
     <div className={"force"}>
       <div className={"force-name"}>{force.name}</div>

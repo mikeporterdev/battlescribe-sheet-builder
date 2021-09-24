@@ -43,8 +43,6 @@ export class Parser {
       throw error;
     }
 
-    console.log(bsRoster);
-
     const {
       $,
       costs: bsCosts,
