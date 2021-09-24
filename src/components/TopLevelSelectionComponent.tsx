@@ -52,9 +52,16 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = (
 ) => {
   const modelSelections = findSelectionsByType(props.selection, [], "model");
   const weaponSelections = findSelectionsByType(props.selection, [], "upgrade");
+  const rules = props.selection.rules;
   return (
     <div className={"unit-container"} id={props.selection.id}>
-      <h4>{props.selection.name}</h4>
+      <h4 className={"unit-name"}>{props.selection.name}</h4>
+      {!!rules.length && (
+        <div>
+          <b>Rules: </b>
+          {rules.map((rule) => rule.name).join(", ")}
+        </div>
+      )}
       <div>
         {modelSelections.map((sel) => sel.number + "x " + sel.name).join(", ")}
         <ModelSelectionComponent selections={modelSelections} />
