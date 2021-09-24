@@ -19,6 +19,7 @@ import {
   Profile,
   WeaponProfile,
   TypeName,
+  AbilityProfile,
 } from "./types";
 
 export function isBSForce(
@@ -79,6 +80,12 @@ export function isWeaponProfile(
   profile: Profile<TypeName>,
 ): profile is WeaponProfile {
   return profile.typeName === "Weapon";
+}
+
+export function isAbilityProfile(
+  profile: Profile<TypeName>,
+): profile is AbilityProfile {
+  return profile.typeName === "Ability";
 }
 
 export function isBSUnitProfile(

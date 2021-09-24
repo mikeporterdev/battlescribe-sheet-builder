@@ -1,8 +1,9 @@
 import * as React from "react";
-import { Selection, SelectionType } from "../services/types";
+import { Profile, Selection, SelectionType } from "../services/types";
 import { ModelSelectionComponent } from "./ModelSelectionComponent";
 import "../assets/scss/TopLevelSelectionComponent.scss";
 import { WeaponsTableComponent } from "./WeaponsTableComponent";
+import { AbilitiesTableComponent } from "./AbilitiesTableComponent";
 interface SelectionComponentProps {
   selection: Selection;
 }
@@ -32,6 +33,20 @@ const findSelectionsByType = (
   }
 };
 
+const getAllProfiles = (selection: Selection, acc: Profile<any>[]) => {
+  if (selection.selections) {
+    return [
+      ...acc,
+      ...selection.profiles,
+      ...selection.selections.flatMap((selection) => {
+        return getAllProfiles(selection, acc);
+      }),
+    ];
+  } else {
+    return [...acc, selection.profiles];
+  }
+};
+
 export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = (
   props,
 ) => {
@@ -39,11 +54,14 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = (
   const weaponSelections = findSelectionsByType(props.selection, [], "upgrade");
   return (
     <div className={"unit-container"} id={props.selection.id}>
-      {props.selection.name}
+      <h4>{props.selection.name}</h4>
       <div>
         {modelSelections.map((sel) => sel.number + "x " + sel.name).join(", ")}
         <ModelSelectionComponent selections={modelSelections} />
         <WeaponsTableComponent selections={weaponSelections} />
+        <AbilitiesTableComponent
+          profiles={getAllProfiles(props.selection, [])}
+        />
       </div>
     </div>
   );

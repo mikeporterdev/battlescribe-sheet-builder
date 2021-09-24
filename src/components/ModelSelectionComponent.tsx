@@ -18,7 +18,7 @@ export const ModelSelectionComponent: React.FC<ModelSelectionComponentProps> = (
         <table>
           <thead>
             <tr>
-              <th>Name</th>
+              <th>Models</th>
               <th>M</th>
               <th>WS</th>
               <th>BS</th>
