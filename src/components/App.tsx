@@ -2,7 +2,7 @@ import * as React from "react";
 import { hot } from "react-hot-loader";
 import "./../assets/scss/App.scss";
 import { RosterComponent } from "./RosterComponent";
-import { RosterNavigatorComponent } from "./RosterNavigatorComponent";
+import { RosterNavigatorComponent } from "./navigator/RosterNavigatorComponent";
 import { BrowserRouter } from "react-router-dom";
 import { FileUploadComponent } from "./FileUploadComponent";
 import { RosterContext } from "./contexts/roster-context";

@@ -15,9 +15,6 @@ export const SelectionInfoComponent: React.FC<SelectionInfoComponentProps> = ({
 }) => {
   const rules = selection.rules;
   const categories = selection.categories;
-  const nestedSelections = selection.selections.filter(
-    (sel) => sel.type === "unit" || sel.type === "model",
-  );
 
   const upgradeSelections = selection.selections.filter(
     (sel) => sel.type === "upgrade",

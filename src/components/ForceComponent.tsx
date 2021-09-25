@@ -2,24 +2,15 @@ import * as React from "react";
 import { Force } from "../services/types";
 import { ForceCategoryComponent } from "./ForceCategoryComponent";
 import { sortUnitCategories } from "../utils/sort-unit-categories";
+import groupBy from "lodash/groupBy";
 
 interface ForceComponentProps {
   force: Force;
 }
 
 export const ForceComponent: React.FC<ForceComponentProps> = ({ force }) => {
-  const selectionsByCategory = {};
-  force.selections.forEach((selection) => {
-    const primaryCategoryName = selection.categories.find(
-      (category) => category.primary,
-    ).name;
-    const existingCategory = selectionsByCategory[primaryCategoryName];
-
-    if (existingCategory) {
-      selectionsByCategory[primaryCategoryName].push(selection);
-    } else {
-      selectionsByCategory[primaryCategoryName] = [selection];
-    }
+  const selectionsByCategory = groupBy(force.selections, (selection) => {
+    return selection.categories.find((category) => category.primary).name;
   });
 
   return (
