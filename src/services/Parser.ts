@@ -181,17 +181,11 @@ export class Parser {
     return rules;
   }
 
-  private cleanBsSelections(
-    bsSelections: Array<{ selection: BSSelection[] } | string>,
-  ): { selection: BSSelection[] }[] {
-    return bsSelections?.filter(isBSSelection);
-  }
-
   private toSelectionArray(
     bsSelections: Array<{ selection: BSSelection[] } | string>,
   ): Selection[] {
     return (
-      this.cleanBsSelections(bsSelections)?.flatMap((bsSelections) => {
+      bsSelections?.filter(isBSSelection)?.flatMap((bsSelections) => {
         return bsSelections.selection.map((bsSelection) => {
           const childSelections = this.toSelectionArray(bsSelection.selections);
           const selection: Selection = {

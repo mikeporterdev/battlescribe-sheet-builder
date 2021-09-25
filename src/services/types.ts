@@ -59,7 +59,6 @@ export type Force = {
   forces: Force[];
   selections: Selection[];
   rules: Rule[];
-  costs: Cost[];
 };
 
 export type BSForce = {
