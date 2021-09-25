@@ -1,5 +1,4 @@
 import { Selection } from "../services/types";
-import groupBy from "lodash/groupBy";
 
 const orderPrio = [
   "Configuration",
