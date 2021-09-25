@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+  ExplosionProfile,
   Profile,
   PsychicPowerProfile,
   PsykerProfile,
@@ -7,6 +8,7 @@ import {
   SelectionType,
   UnitProfile,
   WeaponProfile,
+  WoundTrackProfile,
 } from "../services/types";
 import { ModelSelectionComponent } from "./ModelSelectionComponent";
 import "../assets/scss/TopLevelSelectionComponent.scss";
@@ -16,13 +18,15 @@ import { SelectionInfoComponent } from "./SelectionInfoComponent";
 import { UnknownProfilesComponent } from "./UnknownProfilesComponent";
 import { PsychicPowerTableComponent } from "./PsychicPowerTableComponent";
 import {
-  isBSPsychicPowerProfile,
   isPsychicPowerProfile,
   isPsykerProfile,
   isUnitProfile,
   isWeaponProfile,
+  isWoundTrackProfile,
 } from "../services/guards";
 import { PsykerTableComponent } from "./PsykerTableComponent";
+import { WoundTrackTableComponent } from "./WoundTrackTableComponent";
+import { ExplodesTable } from "./ExplodesTable";
 interface SelectionComponentProps {
   selection: Selection;
 }
@@ -95,6 +99,11 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
     .sort((a, b) => {
       return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
     });
+  const explodesProfile = allNestedProfiles
+    .filter((i): i is ExplosionProfile => i.typeName === "Explosion")
+    .sort((a, b) => {
+      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+    });
   return (
     <div className={"unit-container"} id={selection.id}>
       <SelectionInfoComponent selection={selection} />
@@ -104,6 +113,7 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
         <AbilitiesTableComponent profiles={allNestedProfiles} />
         <PsykerTableComponent profiles={psykerProfiles} />
         <PsychicPowerTableComponent profiles={psychicPowerProfiles} />
+        <ExplodesTable explodesProfiles={explodesProfile} />
         <UnknownProfilesComponent profiles={unknownProfiles} />
       </div>
     </div>

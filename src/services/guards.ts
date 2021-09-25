@@ -23,6 +23,7 @@ import {
   PsychicPowerProfile,
   PsykerProfile,
   UnitProfile,
+  WoundTrackProfile,
 } from "./types";
 
 export function isBSForce(
@@ -83,6 +84,12 @@ export function isWeaponProfile(
   profile: Profile<TypeName>,
 ): profile is WeaponProfile {
   return profile.typeName === "Weapon";
+}
+
+export function isWoundTrackProfile(
+  profile: Profile<TypeName>,
+): profile is WoundTrackProfile {
+  return profile.typeName === "Wound Track";
 }
 
 export function isAbilityProfile(
