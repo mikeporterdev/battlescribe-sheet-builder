@@ -5,6 +5,8 @@ import {
   PsykerProfile,
   Selection,
   SelectionType,
+  UnitProfile,
+  WeaponProfile,
 } from "../services/types";
 import { ModelSelectionComponent } from "./ModelSelectionComponent";
 import "../assets/scss/TopLevelSelectionComponent.scss";
@@ -17,6 +19,8 @@ import {
   isBSPsychicPowerProfile,
   isPsychicPowerProfile,
   isPsykerProfile,
+  isUnitProfile,
+  isWeaponProfile,
 } from "../services/guards";
 import { PsykerTableComponent } from "./PsykerTableComponent";
 interface SelectionComponentProps {
@@ -65,8 +69,6 @@ const getAllProfiles = (selection: Selection, acc: Profile<any>[]) => {
 export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
   selection,
 }) => {
-  const modelSelections = findSelectionsByType(selection, [], "model");
-  const weaponSelections = findSelectionsByType(selection, [], "upgrade");
   const allNestedProfiles = getAllProfiles(selection, []);
   const unknownProfiles = allNestedProfiles
     .filter((i) => i.typeName === "Unknown")
@@ -83,12 +85,22 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
     .sort((a, b) => {
       return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
     });
+  const modelProfiles = allNestedProfiles
+    .filter((i): i is UnitProfile => isUnitProfile(i))
+    .sort((a, b) => {
+      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+    });
+  const weaponProfiles = allNestedProfiles
+    .filter((i): i is WeaponProfile => isWeaponProfile(i))
+    .sort((a, b) => {
+      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+    });
   return (
     <div className={"unit-container"} id={selection.id}>
       <SelectionInfoComponent selection={selection} />
       <div>
-        <ModelSelectionComponent selections={modelSelections} />
-        <WeaponsTableComponent selections={weaponSelections} />
+        <ModelSelectionComponent modelProfiles={modelProfiles} />
+        <WeaponsTableComponent profiles={weaponProfiles} />
         <AbilitiesTableComponent profiles={allNestedProfiles} />
         <PsykerTableComponent profiles={psykerProfiles} />
         <PsychicPowerTableComponent profiles={psychicPowerProfiles} />

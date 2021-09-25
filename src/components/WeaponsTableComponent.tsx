@@ -1,16 +1,15 @@
 import * as React from "react";
-import { Selection, WeaponProfile } from "../services/types";
+import { WeaponProfile } from "../services/types";
 import { isWeaponProfile } from "../services/guards";
 
 interface WeaponsTableProps {
-  selections: Selection[];
+  profiles: WeaponProfile[];
 }
 
 export const WeaponsTableComponent: React.FC<WeaponsTableProps> = ({
-  selections,
+  profiles,
 }) => {
-  const weapons = selections
-    .flatMap((selection) => selection.profiles)
+  const weapons = profiles
     .filter((profile): profile is WeaponProfile => isWeaponProfile(profile))
     .filter((val, id, array) => {
       return array.map((i) => i.name).indexOf(val.name) == id;

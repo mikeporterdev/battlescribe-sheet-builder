@@ -3,16 +3,13 @@ import { Selection, UnitProfile } from "../services/types";
 import { ProfileComponent } from "./ProfileComponent";
 import "../assets/scss/ModelTable.scss";
 interface ModelSelectionComponentProps {
-  selections: Selection[];
+  modelProfiles: UnitProfile[];
 }
 
 export const ModelSelectionComponent: React.FC<ModelSelectionComponentProps> = (
   props,
 ) => {
-  const profiles = props.selections
-    .flatMap((sel) =>
-      sel.profiles.filter((profile) => profile.typeName === "Unit"),
-    )
+  const profiles = props.modelProfiles
     .filter((val, id, array) => {
       return array.map((i) => i.name).indexOf(val.name) == id;
     })
