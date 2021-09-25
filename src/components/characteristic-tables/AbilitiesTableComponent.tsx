@@ -2,6 +2,7 @@ import * as React from "react";
 import { AbilityProfile, Profile, Selection } from "../../services/types";
 import { isAbilityProfile } from "../../services/guards";
 import { sortByName } from "../../utils/sort-by-name";
+import { ScanCategoryTextComponent } from "../ScanCategoryTextComponent";
 
 interface AbilitiesTableComponentProps {
   profiles: Profile<any>[];
@@ -29,7 +30,9 @@ export const AbilitiesTableComponent: React.FC<AbilitiesTableComponentProps> =
                 return (
                   <tr>
                     <td>{ability.name}</td>
-                    <td>{ability.description}</td>
+                    <td>
+                      <ScanCategoryTextComponent text={ability.description} />
+                    </td>
                   </tr>
                 );
               })}
