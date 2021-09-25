@@ -14,6 +14,22 @@ export const RosterComponent: React.FC<RosterComponentProps> = ({ roster }) => {
       {roster.forces.map((force) => (
         <ForceComponent key={force.name} force={force} />
       ))}
+      <h3>Force Rules</h3>
+      <ul>
+        {roster.forces
+          .flatMap((force) => {
+            return force.rules;
+          })
+          .filter((val, id, array) => {
+            return array.map((i) => i.name).indexOf(val.name) == id;
+          })
+          .map((rule) => (
+            <li>
+              <b>{rule.name}: </b>
+              <span>{rule.description}</span>
+            </li>
+          ))}
+      </ul>
     </div>
   );
 };
