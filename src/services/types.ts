@@ -294,7 +294,6 @@ export interface BSExplosionCharacteristic extends BSCharacteristic {
     name: "Dice roll" | "Distance" | "Mortal wounds";
   };
 }
-
 export type CalculatedCosts = {
   [CostType.PTS]: number;
   [CostType.PL]: number;

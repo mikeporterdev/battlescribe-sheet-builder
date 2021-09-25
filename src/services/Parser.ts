@@ -43,6 +43,8 @@ export class Parser {
       throw error;
     }
 
+    console.log(JSON.stringify(bsRoster));
+
     const {
       $,
       costs: bsCosts,

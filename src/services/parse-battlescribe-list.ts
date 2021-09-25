@@ -6,6 +6,6 @@ import { Roster } from "./types";
 
 export async function readBattlescribe(): Promise<Roster> {
   const roster = await new Parser().parse(file);
-  console.log(roster);
+  console.log(JSON.stringify(roster));
   return roster;
 }

@@ -14,7 +14,6 @@ export const CostsComponent: React.FC<CostsComponentProps> = ({ costs }) => {
     return null;
   }
 
-  console.log(relevantCosts);
   return (
     <>
       {" "}

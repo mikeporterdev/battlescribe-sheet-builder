@@ -43,7 +43,7 @@ class ProfileFactory {
       converter = new ExplosionProfileConverter();
     else
       converter = new UnknownProfileConverter(
-        (bsProfile as { $: { name: string } }).$.name,
+        (bsProfile as { $: { typeName: string } }).$.typeName,
       );
 
     return converter.convert(bsProfile);

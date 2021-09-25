@@ -5,6 +5,7 @@ import "../assets/scss/TopLevelSelectionComponent.scss";
 import { WeaponsTableComponent } from "./WeaponsTableComponent";
 import { AbilitiesTableComponent } from "./AbilitiesTableComponent";
 import { SelectionInfoComponent } from "./SelectionInfoComponent";
+import { UnknownProfilesComponent } from "./UnknownProfilesComponent";
 interface SelectionComponentProps {
   selection: Selection;
 }
@@ -53,6 +54,10 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
 }) => {
   const modelSelections = findSelectionsByType(selection, [], "model");
   const weaponSelections = findSelectionsByType(selection, [], "upgrade");
+  const unknownProfiles = getAllProfiles(selection, []).filter(
+    (i) => i.typeName === "Unknown",
+  );
+  console.log(unknownProfiles);
   return (
     <div className={"unit-container"} id={selection.id}>
       <SelectionInfoComponent selection={selection} />
@@ -60,6 +65,7 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
         <ModelSelectionComponent selections={modelSelections} />
         <WeaponsTableComponent selections={weaponSelections} />
         <AbilitiesTableComponent profiles={getAllProfiles(selection, [])} />
+        <UnknownProfilesComponent profiles={unknownProfiles} />
       </div>
     </div>
   );
