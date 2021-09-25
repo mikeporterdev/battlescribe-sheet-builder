@@ -10,7 +10,7 @@ module.exports = merge(commonConfig, {
   output: {
     filename: "js/bundle.[contenthash].min.js",
     path: resolve(__dirname, "../../deploy"),
-    publicPath: "/",
+    publicPath: "/battlescribe-sheet-builder",
   },
   devtool: "source-map",
   plugins: [],
