@@ -1,6 +1,7 @@
 import * as React from "react";
 import { AbilityProfile, Profile, Selection } from "../services/types";
 import { isAbilityProfile } from "../services/guards";
+import { sortByName } from "../utils/sort-by-name";
 
 interface AbilitiesTableComponentProps {
   profiles: Profile<any>[];
@@ -13,9 +14,7 @@ export const AbilitiesTableComponent: React.FC<AbilitiesTableComponentProps> =
       .filter((val, id, array) => {
         return array.map((i) => i.name).indexOf(val.name) == id;
       })
-      .sort((a, b) => {
-        return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
-      });
+      .sort(sortByName);
 
     return (
       <>
