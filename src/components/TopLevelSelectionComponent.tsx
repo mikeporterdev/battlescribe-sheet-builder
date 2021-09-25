@@ -1,11 +1,21 @@
 import * as React from "react";
-import { Profile, Selection, SelectionType } from "../services/types";
+import {
+  Profile,
+  PsychicPowerProfile,
+  Selection,
+  SelectionType,
+} from "../services/types";
 import { ModelSelectionComponent } from "./ModelSelectionComponent";
 import "../assets/scss/TopLevelSelectionComponent.scss";
 import { WeaponsTableComponent } from "./WeaponsTableComponent";
 import { AbilitiesTableComponent } from "./AbilitiesTableComponent";
 import { SelectionInfoComponent } from "./SelectionInfoComponent";
 import { UnknownProfilesComponent } from "./UnknownProfilesComponent";
+import { PsychicPowerTableComponent } from "./PsychicPowerTableComponent";
+import {
+  isBSPsychicPowerProfile,
+  isPsychicPowerProfile,
+} from "../services/guards";
 interface SelectionComponentProps {
   selection: Selection;
 }
@@ -54,8 +64,12 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
 }) => {
   const modelSelections = findSelectionsByType(selection, [], "model");
   const weaponSelections = findSelectionsByType(selection, [], "upgrade");
-  const unknownProfiles = getAllProfiles(selection, []).filter(
+  const allNestedProfiles = getAllProfiles(selection, []);
+  const unknownProfiles = allNestedProfiles.filter(
     (i) => i.typeName === "Unknown",
+  );
+  const psychicPowerProfiles = allNestedProfiles.filter(
+    (i): i is PsychicPowerProfile => isPsychicPowerProfile(i),
   );
   return (
     <div className={"unit-container"} id={selection.id}>
@@ -63,7 +77,8 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
       <div>
         <ModelSelectionComponent selections={modelSelections} />
         <WeaponsTableComponent selections={weaponSelections} />
-        <AbilitiesTableComponent profiles={getAllProfiles(selection, [])} />
+        <AbilitiesTableComponent profiles={allNestedProfiles} />
+        <PsychicPowerTableComponent profiles={psychicPowerProfiles} />
         <UnknownProfilesComponent profiles={unknownProfiles} />
       </div>
     </div>

@@ -20,6 +20,7 @@ import {
   WeaponProfile,
   TypeName,
   AbilityProfile,
+  PsychicPowerProfile,
 } from "./types";
 
 export function isBSForce(
@@ -86,6 +87,12 @@ export function isAbilityProfile(
   profile: Profile<TypeName>,
 ): profile is AbilityProfile {
   return profile.typeName === "Ability";
+}
+
+export function isPsychicPowerProfile(
+  profile: Profile<TypeName>,
+): profile is PsychicPowerProfile {
+  return profile.typeName === "Psychic Power";
 }
 
 export function isBSUnitProfile(

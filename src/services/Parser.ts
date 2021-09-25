@@ -42,7 +42,7 @@ export class Parser {
       throw error;
     }
 
-    console.log(JSON.stringify(bsRoster));
+    console.log("BSRoster", JSON.stringify(bsRoster));
 
     const {
       $,
@@ -51,7 +51,7 @@ export class Parser {
       forces: bsForces,
     } = bsRoster;
 
-    return {
+    const roster = {
       id: "roster",
       gameSystemName: $.gameSystemName,
       name: $.name,
@@ -59,6 +59,9 @@ export class Parser {
       costLimits: this.toCostArray(bsCostLimits),
       forces: this.toForceArray(bsForces),
     };
+
+    console.log("Roster", roster);
+    return roster;
   }
 
   private calculateCosts(selections: Selection[]): CalculatedCosts {
@@ -80,7 +83,6 @@ export class Parser {
     bsCosts: Array<{ cost: BSCost[] } | { costLimit: BSCost[] } | string>,
     additionalCosts: CalculatedCosts = {},
   ): Cost[] {
-    console.log("bscosts", bsCosts);
     const costs: Cost[] = bsCosts
       ?.flatMap((bsCosts) => {
         return isBSCost(bsCosts)
@@ -90,7 +92,6 @@ export class Parser {
           : [];
       })
       .map((bsCost) => {
-        console.log(bsCost);
         const name = bsCost.$.name;
         return {
           value:
@@ -99,7 +100,6 @@ export class Parser {
           name: name,
         };
       });
-    console.log("costs", costs);
 
     return costs ?? [];
   }
