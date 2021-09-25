@@ -3,6 +3,7 @@ import { ModelSelectionComponent } from "./ModelSelectionComponent";
 import { WeaponsTableComponent } from "./WeaponsTableComponent";
 import { AbilitiesTableComponent } from "./AbilitiesTableComponent";
 import { Selection } from "../services/types";
+import { CostsComponent } from "./CostsComponent";
 
 interface SelectionInfoComponentProps {
   selection: Selection;
@@ -16,11 +17,13 @@ export const SelectionInfoComponent: React.FC<SelectionInfoComponentProps> = ({
   const nestedSelections = selection.selections.filter(
     (sel) => sel.type === "unit" || sel.type === "model",
   );
+
   return (
     <div className={"nested-selection"} id={selection.id}>
       <h4 className={"unit-name"}>
         {selection.number > 1 && `${selection.number}x `}
         {selection.name}
+        <CostsComponent costs={selection.costs} />
       </h4>
       {!!rules.length && (
         <div>

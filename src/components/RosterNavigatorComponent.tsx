@@ -18,7 +18,7 @@ export const RosterNavigatorComponent: React.FC<RosterNavigatorComponentProps> =
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
-        <h5>ROSTER NAVIGATOR</h5>
+        <h5 className={"roster-navigator-title"}>ROSTER NAVIGATOR</h5>
         {hover && (
           <ul>
             {props.roster.forces.map((force) => (
