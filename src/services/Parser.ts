@@ -9,6 +9,7 @@ import {
   BSSelection,
   CalculatedCosts,
   Category,
+  CategoryMap,
   Cost,
   Force,
   Profile,
@@ -30,6 +31,8 @@ import {
 import RawBufferLoader from "./loader/RawBufferLoader";
 import ProfileFactory from "./profile/ProfileFactory";
 import { v4 as uuidv4 } from "uuid";
+import groupBy from "lodash/groupBy";
+import { getAllCategories } from "../components/SelectionInfoComponent";
 
 export class Parser {
   public async parse(path: ArrayBuffer): Promise<Roster> {
@@ -51,17 +54,37 @@ export class Parser {
       forces: bsForces,
     } = bsRoster;
 
+    const forces = this.toForceArray(bsForces);
     const roster = {
       id: "roster",
       gameSystemName: $.gameSystemName,
       name: $.name,
       costs: this.toCostArray(bsCosts),
       costLimits: this.toCostArray(bsCostLimits),
-      forces: this.toForceArray(bsForces),
+      forces: forces,
+      categoryMap: this.calculateCategoryMap(forces),
     };
+
+    console.log("CATEGORYMAP", roster.categoryMap);
 
     console.log("Roster", roster);
     return roster;
+  }
+
+  private calculateCategoryMap(forces: Force[]): CategoryMap {
+    const forceSelections = forces.flatMap((force) => force.selections);
+    return {
+      selections: forceSelections.reduce((acc, selection) => {
+        getAllCategories(selection, []).forEach((cat) => {
+          if (acc[cat.name]) {
+            acc[cat.name].push(selection);
+          } else {
+            acc[cat.name] = [selection];
+          }
+        });
+        return acc;
+      }, {} as Record<string, Selection[]>),
+    };
   }
 
   private calculateCosts(selections: Selection[]): CalculatedCosts {

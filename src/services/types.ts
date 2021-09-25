@@ -1,3 +1,7 @@
+export type CategoryMap = {
+  selections: Record<string, Selection[]>;
+};
+
 export type Roster = {
   id;
   gameSystemName: string;
@@ -5,6 +9,7 @@ export type Roster = {
   costs: Cost[];
   costLimits: Cost[];
   forces: Force[];
+  categoryMap: CategoryMap;
 };
 
 export type BSRoster = {

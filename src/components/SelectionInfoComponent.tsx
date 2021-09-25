@@ -10,7 +10,7 @@ interface SelectionInfoComponentProps {
   qty?: number;
 }
 
-const getAllCategories = (
+export const getAllCategories = (
   selection: Selection,
   acc: Category[],
 ): Category[] => {
