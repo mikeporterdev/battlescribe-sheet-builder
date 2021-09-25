@@ -6,6 +6,10 @@ table {
   max-width: 1600px;
 }
 
+thead {
+  border-width: 1px
+}
+
 th {
   padding: 4px;
   text-align: left;
@@ -21,6 +25,5 @@ td:first-child {
 }
 
 tr {
-
-  border: 1px #bbbbbb solid
+  border: 1px #bbbbbb solid !important;
 }

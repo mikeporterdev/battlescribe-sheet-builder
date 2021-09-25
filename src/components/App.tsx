@@ -8,7 +8,7 @@ import { FileUploadComponent } from "./FileUploadComponent";
 import { RosterContext } from "./contexts/roster-context";
 import { useState } from "react";
 import { Roster } from "../services/types";
-
+import "bootstrap/dist/css/bootstrap.min.css";
 const App = () => {
   const [roster, setRoster] = useState<Roster>(undefined);
   return (
