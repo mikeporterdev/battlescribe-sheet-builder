@@ -68,15 +68,21 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
   const modelSelections = findSelectionsByType(selection, [], "model");
   const weaponSelections = findSelectionsByType(selection, [], "upgrade");
   const allNestedProfiles = getAllProfiles(selection, []);
-  const unknownProfiles = allNestedProfiles.filter(
-    (i) => i.typeName === "Unknown",
-  );
-  const psychicPowerProfiles = allNestedProfiles.filter(
-    (i): i is PsychicPowerProfile => isPsychicPowerProfile(i),
-  );
-  const psykerProfiles = allNestedProfiles.filter((i): i is PsykerProfile =>
-    isPsykerProfile(i),
-  );
+  const unknownProfiles = allNestedProfiles
+    .filter((i) => i.typeName === "Unknown")
+    .sort((a, b) => {
+      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+    });
+  const psychicPowerProfiles = allNestedProfiles
+    .filter((i): i is PsychicPowerProfile => isPsychicPowerProfile(i))
+    .sort((a, b) => {
+      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+    });
+  const psykerProfiles = allNestedProfiles
+    .filter((i): i is PsykerProfile => isPsykerProfile(i))
+    .sort((a, b) => {
+      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+    });
   return (
     <div className={"unit-container"} id={selection.id}>
       <SelectionInfoComponent selection={selection} />

@@ -12,6 +12,9 @@ export const AbilitiesTableComponent: React.FC<AbilitiesTableComponentProps> =
       .filter((profile): profile is AbilityProfile => isAbilityProfile(profile))
       .filter((val, id, array) => {
         return array.map((i) => i.name).indexOf(val.name) == id;
+      })
+      .sort((a, b) => {
+        return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
       });
 
     return (
