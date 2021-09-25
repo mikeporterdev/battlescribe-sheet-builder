@@ -120,13 +120,13 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
       <SelectionInfoComponent selection={selection} />
       <div>
         <ModelSelectionComponent modelProfiles={modelProfiles} />
+        <WoundTrackTableComponent profiles={woundTrackProfiles} />
         <WeaponsTableComponent profiles={weaponProfiles} />
         <AbilitiesTableComponent profiles={allNestedProfiles} />
         <PsykerTableComponent profiles={psykerProfiles} />
         <PsychicPowerTableComponent profiles={psychicPowerProfiles} />
         <ExplodesTable explodesProfiles={explodesProfile} />
         <UnknownProfilesComponent profiles={unknownProfiles} />
-        <WoundTrackTableComponent profiles={woundTrackProfiles} />
       </div>
     </div>
   );
