@@ -1,7 +1,8 @@
 import * as React from "react";
-import { Selection, UnitProfile } from "../services/types";
+import { UnitProfile } from "../../services/types";
 import { ProfileComponent } from "./ProfileComponent";
-import "../assets/scss/ModelTable.scss";
+import "../../assets/scss/ModelTable.scss";
+
 interface ModelSelectionComponentProps {
   modelProfiles: UnitProfile[];
 }

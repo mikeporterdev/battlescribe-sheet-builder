@@ -1,5 +1,5 @@
 import * as React from "react";
-import { WoundTrackProfile } from "../services/types";
+import { WoundTrackProfile } from "../../services/types";
 
 interface WoundTrackTableComponentProps {
   profiles: WoundTrackProfile[];

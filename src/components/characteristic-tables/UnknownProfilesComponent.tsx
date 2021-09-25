@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Profile, UnknownProfile } from "../services/types";
+import { UnknownProfile } from "../../services/types";
 
 interface UnknownProfilesComponentProps {
   profiles: UnknownProfile[];

@@ -1,6 +1,6 @@
 import * as React from "react";
-import { WeaponProfile } from "../services/types";
-import { isWeaponProfile } from "../services/guards";
+import { WeaponProfile } from "../../services/types";
+import { isWeaponProfile } from "../../services/guards";
 
 interface WeaponsTableProps {
   profiles: WeaponProfile[];

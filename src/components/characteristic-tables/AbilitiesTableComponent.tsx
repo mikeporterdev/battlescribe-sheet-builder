@@ -1,7 +1,7 @@
 import * as React from "react";
-import { AbilityProfile, Profile, Selection } from "../services/types";
-import { isAbilityProfile } from "../services/guards";
-import { sortByName } from "../utils/sort-by-name";
+import { AbilityProfile, Profile, Selection } from "../../services/types";
+import { isAbilityProfile } from "../../services/guards";
+import { sortByName } from "../../utils/sort-by-name";
 
 interface AbilitiesTableComponentProps {
   profiles: Profile<any>[];

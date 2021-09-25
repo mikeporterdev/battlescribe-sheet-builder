@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TransportProfile } from "../services/types";
+import { TransportProfile } from "../../services/types";
 
 interface TransportTableComponentProps {
   transportProfiles: TransportProfile[];

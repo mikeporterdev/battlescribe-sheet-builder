@@ -1,5 +1,5 @@
 import * as React from "react";
-import { PsykerProfile } from "../services/types";
+import { PsykerProfile } from "../../services/types";
 
 interface PsykerTableComponentProps {
   profiles: PsykerProfile[];

@@ -13,23 +13,23 @@ import {
   WeaponProfile,
   WoundTrackProfile,
 } from "../services/types";
-import { ModelSelectionComponent } from "./ModelSelectionComponent";
+import { ModelSelectionComponent } from "./characteristic-tables/ModelSelectionComponent";
 import "../assets/scss/TopLevelSelectionComponent.scss";
-import { WeaponsTableComponent } from "./WeaponsTableComponent";
-import { AbilitiesTableComponent } from "./AbilitiesTableComponent";
+import { WeaponsTableComponent } from "./characteristic-tables/WeaponsTableComponent";
+import { AbilitiesTableComponent } from "./characteristic-tables/AbilitiesTableComponent";
 import { SelectionInfoComponent } from "./SelectionInfoComponent";
-import { UnknownProfilesComponent } from "./UnknownProfilesComponent";
-import { PsychicPowerTableComponent } from "./PsychicPowerTableComponent";
+import { UnknownProfilesComponent } from "./characteristic-tables/UnknownProfilesComponent";
+import { PsychicPowerTableComponent } from "./characteristic-tables/PsychicPowerTableComponent";
 import {
   isPsychicPowerProfile,
   isPsykerProfile,
   isUnitProfile,
   isWeaponProfile,
 } from "../services/guards";
-import { PsykerTableComponent } from "./PsykerTableComponent";
-import { WoundTrackTableComponent } from "./WoundTrackTableComponent";
-import { ExplodesTable } from "./ExplodesTable";
-import { TransportTableComponent } from "./TransportTableComponent";
+import { PsykerTableComponent } from "./characteristic-tables/PsykerTableComponent";
+import { WoundTrackTableComponent } from "./characteristic-tables/WoundTrackTableComponent";
+import { ExplodesTable } from "./characteristic-tables/ExplodesTable";
+import { TransportTableComponent } from "./characteristic-tables/TransportTableComponent";
 
 interface SelectionComponentProps {
   selection: Selection;

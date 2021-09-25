@@ -1,5 +1,5 @@
 import * as React from "react";
-import { PsychicPowerProfile } from "../services/types";
+import { PsychicPowerProfile } from "../../services/types";
 
 interface PsychicPowerTableComponentProps {
   profiles: PsychicPowerProfile[];

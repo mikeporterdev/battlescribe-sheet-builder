@@ -1,5 +1,5 @@
 import * as React from "react";
-import { UnitProfile } from "../services/types";
+import { UnitProfile } from "../../services/types";
 
 interface ProfileComponentProps {
   profile: UnitProfile;

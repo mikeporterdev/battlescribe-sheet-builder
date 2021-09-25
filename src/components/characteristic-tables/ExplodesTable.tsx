@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ExplosionProfile } from "../services/types";
+import { ExplosionProfile } from "../../services/types";
 
 interface ExplodesTableProps {
   explodesProfiles: ExplosionProfile[];
