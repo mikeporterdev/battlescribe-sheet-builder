@@ -11,7 +11,10 @@ export const WeaponsTableComponent: React.FC<WeaponsTableProps> = ({
 }) => {
   const weapons = selections
     .flatMap((selection) => selection.profiles)
-    .filter((profile): profile is WeaponProfile => isWeaponProfile(profile));
+    .filter((profile): profile is WeaponProfile => isWeaponProfile(profile))
+    .filter((val, id, array) => {
+      return array.map((i) => i.name).indexOf(val.name) == id;
+    });
   return (
     <>
       {!!weapons.length && (

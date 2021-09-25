@@ -31,8 +31,6 @@ export const UnknownProfilesComponent: React.FC<UnknownProfilesComponentProps> =
       return acc;
     }, {} as UnknownProfilesGroups);
 
-    console.log(tables);
-
     return (
       <>
         {Object.keys(tables).map((tableName) => {

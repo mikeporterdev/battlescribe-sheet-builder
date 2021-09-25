@@ -9,9 +9,13 @@ interface ModelSelectionComponentProps {
 export const ModelSelectionComponent: React.FC<ModelSelectionComponentProps> = (
   props,
 ) => {
-  const profiles = props.selections.flatMap((sel) =>
-    sel.profiles.filter((profile) => profile.typeName === "Unit"),
-  );
+  const profiles = props.selections
+    .flatMap((sel) =>
+      sel.profiles.filter((profile) => profile.typeName === "Unit"),
+    )
+    .filter((val, id, array) => {
+      return array.map((i) => i.name).indexOf(val.name) == id;
+    });
   return (
     <>
       {!!profiles.length && (
