@@ -22,12 +22,14 @@ export const RosterNavigatorComponent: React.FC<RosterNavigatorComponentProps> =
         <h5 className={"roster-navigator-title"}>ROSTER NAVIGATOR</h5>
         {hover && (
           <ul>
-            {props.roster.forces.map((force) => (
-              <RosterForceNavigator
-                key={`router-navigator-selection-${force.id}`}
-                force={force}
-              />
-            ))}
+            {props.roster.forces
+              .filter((force) => force.selections.some((sel) => sel.alive))
+              .map((force) => (
+                <RosterForceNavigator
+                  key={`router-navigator-selection-${force.id}`}
+                  force={force}
+                />
+              ))}
           </ul>
         )}
       </div>
