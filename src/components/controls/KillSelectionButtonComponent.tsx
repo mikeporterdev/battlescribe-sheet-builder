@@ -18,18 +18,19 @@ export const KillSelectionButtonComponent: React.FC<KillSelectionButtonProps> =
   (props) => {
     const { roster, setRoster } = useRoster();
 
+    const selection = findSelectionForRoster(roster, props.selectionId);
     const clickHandler = async (e) => {
-      findSelectionForRoster(roster, props.selectionId).alive = false;
+      selection.alive = !selection.alive;
       setRoster({ ...roster });
     };
 
     return (
       <Button
-        variant={"danger"}
+        variant={selection.alive ? "danger" : "primary"}
         className={"kill-button-container"}
         onClick={clickHandler}
       >
-        Kill
+        {selection.alive ? "Kill" : "Revive"}
       </Button>
     );
   };

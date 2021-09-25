@@ -130,18 +130,22 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
         <CostsComponent costs={selection.costs} />
         <KillSelectionButtonComponent selectionId={selection.id} />
       </h4>
-      <SelectionInfoComponent selection={selection} />
-      <div>
-        <ModelSelectionComponent modelProfiles={modelProfiles} />
-        <WoundTrackTableComponent profiles={woundTrackProfiles} />
-        <WeaponsTableComponent profiles={weaponProfiles} />
-        <AbilitiesTableComponent profiles={allNestedProfiles} />
-        <PsykerTableComponent profiles={psykerProfiles} />
-        <PsychicPowerTableComponent profiles={psychicPowerProfiles} />
-        <ExplodesTable explodesProfiles={explodesProfile} />
-        <TransportTableComponent transportProfiles={transportProfiles} />
-        <UnknownProfilesComponent profiles={unknownProfiles} />
-      </div>
+      {selection.alive && (
+        <>
+          <SelectionInfoComponent selection={selection} />
+          <div>
+            <ModelSelectionComponent modelProfiles={modelProfiles} />
+            <WoundTrackTableComponent profiles={woundTrackProfiles} />
+            <WeaponsTableComponent profiles={weaponProfiles} />
+            <AbilitiesTableComponent profiles={allNestedProfiles} />
+            <PsykerTableComponent profiles={psykerProfiles} />
+            <PsychicPowerTableComponent profiles={psychicPowerProfiles} />
+            <ExplodesTable explodesProfiles={explodesProfile} />
+            <TransportTableComponent transportProfiles={transportProfiles} />
+            <UnknownProfilesComponent profiles={unknownProfiles} />
+          </div>
+        </>
+      )}
     </div>
   );
 };

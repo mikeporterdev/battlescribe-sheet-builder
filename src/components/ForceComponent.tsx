@@ -9,12 +9,9 @@ interface ForceComponentProps {
 }
 
 export const ForceComponent: React.FC<ForceComponentProps> = ({ force }) => {
-  const selectionsByCategory = groupBy(
-    force.selections.filter((sel) => sel.alive),
-    (selection) => {
-      return selection.categories.find((category) => category.primary).name;
-    },
-  );
+  const selectionsByCategory = groupBy(force.selections, (selection) => {
+    return selection.categories.find((category) => category.primary).name;
+  });
 
   return (
     <div className={"force"}>
