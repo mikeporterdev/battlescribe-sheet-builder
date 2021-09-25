@@ -11,22 +11,28 @@ export const WoundTrackTableComponent: React.FC<WoundTrackTableComponentProps> =
 
     const { name, remainingWounds, typeName, id, ...rest } = profiles[0];
 
+    console.log(profiles);
+
     return (
       <>
         <table>
           <thead>
             <tr>
-              <th>Psyker</th>
-              <th>Cast</th>
-              <th>Deny</th>
-              <th>Powers Known</th>
-              <th>Other</th>
+              <th>Wound Track</th>
+              <th>Remaining Wounds</th>
+              {Object.keys(rest).map((key) => (
+                <th>{key.replace("Characteristic ", "C")}</th>
+              ))}
             </tr>
           </thead>
           <tbody>
             {profiles.map((profile) => (
-              <tr key={profile.id + "-psychic-power-table-row"}>
-                {/*<td>{profile.name}</td>*/}
+              <tr key={profile.id + "-wound-track-table-row"}>
+                <td>{profile.name}</td>
+                <td>{profile.remainingWounds}</td>
+                {Object.keys(rest).map((key) => (
+                  <td>{rest[key]}</td>
+                ))}
                 {/*<td>{profile.remainingWounds}</td>*/}
                 {/*<td>{profile.deny}</td>*/}
                 {/*<td>{profile.powersKnown}</td>*/}

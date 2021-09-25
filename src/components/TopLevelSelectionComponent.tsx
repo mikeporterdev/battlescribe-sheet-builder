@@ -6,7 +6,9 @@ import {
   PsykerProfile,
   Selection,
   SelectionType,
+  TypeName,
   UnitProfile,
+  UnknownProfile,
   WeaponProfile,
   WoundTrackProfile,
 } from "../services/types";
@@ -27,6 +29,7 @@ import {
 import { PsykerTableComponent } from "./PsykerTableComponent";
 import { WoundTrackTableComponent } from "./WoundTrackTableComponent";
 import { ExplodesTable } from "./ExplodesTable";
+import WoundTrackProfileConverter from "../services/profile/WoundTrackProfileConverter";
 interface SelectionComponentProps {
   selection: Selection;
 }
@@ -56,7 +59,10 @@ const findSelectionsByType = (
   }
 };
 
-const getAllProfiles = (selection: Selection, acc: Profile<any>[]) => {
+const getAllProfiles = (
+  selection: Selection,
+  acc: Profile<TypeName>[],
+): Profile<TypeName>[] => {
   if (selection.selections) {
     return [
       ...acc,
@@ -66,7 +72,7 @@ const getAllProfiles = (selection: Selection, acc: Profile<any>[]) => {
       }),
     ];
   } else {
-    return [...acc, selection.profiles];
+    return [...acc, ...selection.profiles];
   }
 };
 
@@ -75,7 +81,7 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
 }) => {
   const allNestedProfiles = getAllProfiles(selection, []);
   const unknownProfiles = allNestedProfiles
-    .filter((i) => i.typeName === "Unknown")
+    .filter((i): i is UnknownProfile => i.typeName === "Unknown")
     .sort((a, b) => {
       return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
     });
@@ -104,6 +110,11 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
     .sort((a, b) => {
       return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
     });
+  const woundTrackProfiles = allNestedProfiles
+    .filter((i): i is WoundTrackProfile => i.typeName === "Wound Track")
+    .sort((a, b) => {
+      return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+    });
   return (
     <div className={"unit-container"} id={selection.id}>
       <SelectionInfoComponent selection={selection} />
@@ -115,6 +126,7 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
         <PsychicPowerTableComponent profiles={psychicPowerProfiles} />
         <ExplodesTable explodesProfiles={explodesProfile} />
         <UnknownProfilesComponent profiles={unknownProfiles} />
+        <WoundTrackTableComponent profiles={woundTrackProfiles} />
       </div>
     </div>
   );
