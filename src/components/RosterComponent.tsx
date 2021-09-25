@@ -47,7 +47,7 @@ export const RosterComponent: React.FC<RosterComponentProps> = ({ roster }) => {
             return array.map((i) => i.name).indexOf(val.name) == id;
           })
           .map((rule) => (
-            <li>
+            <li key={`force-rule-${rule.name}`}>
               <b>{rule.name}: </b>
               <span>{rule.description}</span>
             </li>
@@ -62,7 +62,7 @@ export const RosterComponent: React.FC<RosterComponentProps> = ({ roster }) => {
           .sort(sortByName)
 
           .map((rule) => (
-            <li>
+            <li key={`selection-rule-${rule.name}`}>
               <b>{rule.name}: </b>
               <span>{rule.description}</span>
             </li>
