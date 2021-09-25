@@ -2,6 +2,7 @@ import * as React from "react";
 import {
   Profile,
   PsychicPowerProfile,
+  PsykerProfile,
   Selection,
   SelectionType,
 } from "../services/types";
@@ -15,7 +16,9 @@ import { PsychicPowerTableComponent } from "./PsychicPowerTableComponent";
 import {
   isBSPsychicPowerProfile,
   isPsychicPowerProfile,
+  isPsykerProfile,
 } from "../services/guards";
+import { PsykerTableComponent } from "./PsykerTableComponent";
 interface SelectionComponentProps {
   selection: Selection;
 }
@@ -71,6 +74,9 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
   const psychicPowerProfiles = allNestedProfiles.filter(
     (i): i is PsychicPowerProfile => isPsychicPowerProfile(i),
   );
+  const psykerProfiles = allNestedProfiles.filter((i): i is PsykerProfile =>
+    isPsykerProfile(i),
+  );
   return (
     <div className={"unit-container"} id={selection.id}>
       <SelectionInfoComponent selection={selection} />
@@ -78,6 +84,7 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
         <ModelSelectionComponent selections={modelSelections} />
         <WeaponsTableComponent selections={weaponSelections} />
         <AbilitiesTableComponent profiles={allNestedProfiles} />
+        <PsykerTableComponent profiles={psykerProfiles} />
         <PsychicPowerTableComponent profiles={psychicPowerProfiles} />
         <UnknownProfilesComponent profiles={unknownProfiles} />
       </div>
