@@ -3,6 +3,7 @@ import { Selection } from "../services/types";
 import { CostsComponent } from "./CostsComponent";
 import { sortByName } from "../utils/sort-by-name";
 import groupBy from "lodash/groupBy";
+import { CategoriesComponent } from "./CategoriesComponent";
 
 interface SelectionInfoComponentProps {
   selection: Selection;
@@ -54,11 +55,7 @@ export const SelectionInfoComponent: React.FC<SelectionInfoComponentProps> = ({
           )}
           {!!categories.length && (
             <div>
-              <b>Categories: </b>
-              {categories
-                .sort(sortByName)
-                .map((category) => category.name)
-                .join(", ")}
+              <CategoriesComponent categories={categories} />
             </div>
           )}
           {!!upgradeSelections.length && (
