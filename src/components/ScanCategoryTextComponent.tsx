@@ -6,48 +6,31 @@ interface ScanCategoryTextComponentProps {
   text: string;
 }
 
-// function splitMulti(str: string, keywords: string[]) {
-//   return keywords.reduce((acc, keyword) => {});
-// }
-//
-// function splitTextByKeyword(
-//   str: string,
-//   keyword: string,
-// ): { text: string; type: "text" | "keyword" }[] {
-//   const split = str.split(keyword).map((text) => {
-//     return { text, type: "text" as const };
-//   });
-//
-//   console.log(str);
-//   console.log(split, keyword);
-//
-//   const flatMap = split.flatMap((value, index, array) =>
-//     array.length - 1 !== index // check for the last item
-//       ? [value, { text: keyword, type: "keyword" as const }]
-//       : value,
-//   );
-//   console.log(flatMap);
-//   return flatMap;
-// }
-
 const tokenIndexes = (
   text: string,
   keywords: string[],
 ): { start: number; end: number; keyword: string }[] => {
   const filter = keywords
-    .map((keyword) => {
-      const index = text.indexOf(keyword);
-      if (index === -1) return undefined;
+    .flatMap((keyword) => {
+      const startingIndices = [];
 
-      return {
-        start: index,
-        end: index + keyword.length,
-        keyword,
-      };
+      let indexOccurence = text.indexOf(keyword, 0);
+
+      while (indexOccurence >= 0) {
+        startingIndices.push(indexOccurence);
+
+        indexOccurence = text.indexOf(keyword, indexOccurence + 1);
+      }
+
+      return startingIndices.map((idx) => {
+        return {
+          start: idx,
+          end: idx + keyword.length,
+          keyword,
+        };
+      });
     })
     .filter((i) => i);
-  console.log(text);
-  console.log(filter);
   return filter;
 };
 

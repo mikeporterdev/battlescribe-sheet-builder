@@ -42,7 +42,7 @@ export const CategoryComponent: React.FC<CategoryComponentProps> = (props) => {
       placement={"right"}
       overlay={popover}
     >
-      <span>{props.category.name}</span>
+      <b>{props.category.name}</b>
     </OverlayTrigger>
   );
 };
