@@ -1,6 +1,8 @@
 import * as React from "react";
 import { useRoster } from "./contexts/roster-context";
 import { Parser } from "../services/Parser";
+import { useEffect } from "react";
+import { readBattlescribe } from "../services/parse-battlescribe-list";
 
 interface FileUploadComponentProps {}
 
@@ -21,6 +23,15 @@ export const FileUploadComponent: React.FC<FileUploadComponentProps> = (
 
     // setRoster(e.target.files[0]);
   };
+  console.log(process.env);
+  if (process.env.env === "local") {
+    useEffect(() => {
+      const readScribe = async () => {
+        setRoster(await readBattlescribe());
+      };
+      readScribe();
+    }, [readBattlescribe, setRoster]);
+  }
 
   return <input type={"file"} name={"file"} onChange={changeHandler} />;
 };
