@@ -110,7 +110,6 @@ export class Parser {
     const forces: Force[] =
       bsForces?.filter(isBSForce).flatMap((bsForces) => {
         return bsForces.force.map((bsForce) => {
-          console.log("BSForce", bsForce);
           const forceId = bsForce.$.name;
           return {
             id: forceId,

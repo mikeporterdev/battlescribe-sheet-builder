@@ -25,13 +25,12 @@ import {
   isPsykerProfile,
   isUnitProfile,
   isWeaponProfile,
-  isWoundTrackProfile,
 } from "../services/guards";
 import { PsykerTableComponent } from "./PsykerTableComponent";
 import { WoundTrackTableComponent } from "./WoundTrackTableComponent";
 import { ExplodesTable } from "./ExplodesTable";
-import WoundTrackProfileConverter from "../services/profile/WoundTrackProfileConverter";
 import { TransportTableComponent } from "./TransportTableComponent";
+
 interface SelectionComponentProps {
   selection: Selection;
 }

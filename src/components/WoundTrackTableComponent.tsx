@@ -11,8 +11,6 @@ export const WoundTrackTableComponent: React.FC<WoundTrackTableComponentProps> =
 
     const { name, remainingWounds, typeName, id, ...rest } = profiles[0];
 
-    console.log(profiles);
-
     return (
       <>
         <table>

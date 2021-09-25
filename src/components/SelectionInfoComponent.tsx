@@ -1,7 +1,4 @@
 import * as React from "react";
-import { ModelSelectionComponent } from "./ModelSelectionComponent";
-import { WeaponsTableComponent } from "./WeaponsTableComponent";
-import { AbilitiesTableComponent } from "./AbilitiesTableComponent";
 import { Selection } from "../services/types";
 import { CostsComponent } from "./CostsComponent";
 
@@ -18,6 +15,13 @@ export const SelectionInfoComponent: React.FC<SelectionInfoComponentProps> = ({
     (sel) => sel.type === "unit" || sel.type === "model",
   );
 
+  const upgradeSelections = selection.selections.filter(
+    (sel) => sel.type === "upgrade",
+  );
+
+  console.log("selection", selection);
+
+  const upgrades = selection.selections.filter((sel) => !sel.selections.length);
   return (
     <div className={"nested-selection"} id={selection.id}>
       <h4 className={"unit-name"}>
@@ -35,6 +39,12 @@ export const SelectionInfoComponent: React.FC<SelectionInfoComponentProps> = ({
         <div>
           <b>Categories: </b>
           {categories.map((category) => category.name).join(", ")}
+        </div>
+      )}
+      {!!upgrades.length && (
+        <div>
+          <b>Selections: </b>
+          {upgrades.map((selection) => selection.name).join(", ")}
         </div>
       )}
       {nestedSelections.map((sel) => (
