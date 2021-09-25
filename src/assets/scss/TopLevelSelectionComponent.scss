@@ -4,13 +4,22 @@
   border: 1px solid #bbbbbb;
 }
 
+.unit-container > .selection-container > h4 {
+  font-size: 18px;
+  margin-bottom: 8px;
+};
+
 .unit-name {
   margin: 0;
 }
 
 .nested-selection {
-  padding-left: 16px;
+  padding-left: 0px;
 }
 .nested-selection-stats {
-  padding-left: 16px;
+  padding-left: 8px;
+}
+
+.selection-container {
+  padding-left: 8px;
 }

@@ -37,49 +37,51 @@ export const SelectionInfoComponent: React.FC<SelectionInfoComponentProps> = ({
   );
 
   return (
-    <div className={"nested-selection"} id={selection.id}>
+    <div className={"selection-container"}>
       <h4 className={"unit-name"}>
         {qty > 1 && `${qty}x `}
         {selection.name}
         <CostsComponent costs={selection.costs} />
       </h4>
-      <div className={"nested-selection-stats"}>
-        {!!rules.length && (
-          <div>
-            <b>Rules: </b>
-            {rules
-              .sort(sortByName)
-              .map((rule) => rule.name)
-              .join(", ")}
-          </div>
-        )}
-        {!!categories.length && (
-          <div>
-            <b>Categories: </b>
-            {categories
-              .sort(sortByName)
-              .map((category) => category.name)
-              .join(", ")}
-          </div>
-        )}
-        {!!upgradeSelections.length && (
-          <div>
-            <b>Selections: </b>
-            {upgradeSelections
-              .sort(sortByName)
-              .map((selection) => selection.name)
-              .join(", ")}
-          </div>
-        )}
-        {Object.keys(groupedSelections).map((sel) => (
-          <SelectionInfoComponent
-            selection={groupedSelections[sel][0]}
-            qty={groupedSelections[sel].reduce(
-              (acc, sel2) => sel2.number + acc,
-              0,
-            )}
-          />
-        ))}
+      <div className={"nested-selection"} id={selection.id}>
+        <div className={"nested-selection-stats"}>
+          {!!rules.length && (
+            <div>
+              <b>Rules: </b>
+              {rules
+                .sort(sortByName)
+                .map((rule) => rule.name)
+                .join(", ")}
+            </div>
+          )}
+          {!!categories.length && (
+            <div>
+              <b>Categories: </b>
+              {categories
+                .sort(sortByName)
+                .map((category) => category.name)
+                .join(", ")}
+            </div>
+          )}
+          {!!upgradeSelections.length && (
+            <div>
+              <b>Selections: </b>
+              {upgradeSelections
+                .sort(sortByName)
+                .map((selection) => selection.name)
+                .join(", ")}
+            </div>
+          )}
+          {Object.keys(groupedSelections).map((sel) => (
+            <SelectionInfoComponent
+              selection={groupedSelections[sel][0]}
+              qty={groupedSelections[sel].reduce(
+                (acc, sel2) => sel2.number + acc,
+                0,
+              )}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
