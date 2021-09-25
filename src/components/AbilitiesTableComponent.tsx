@@ -8,9 +8,11 @@ interface AbilitiesTableComponentProps {
 
 export const AbilitiesTableComponent: React.FC<AbilitiesTableComponentProps> =
   ({ profiles }) => {
-    const abilities = profiles.filter((profile): profile is AbilityProfile =>
-      isAbilityProfile(profile),
-    );
+    const abilities = profiles
+      .filter((profile): profile is AbilityProfile => isAbilityProfile(profile))
+      .filter((val, id, array) => {
+        return array.map((i) => i.name).indexOf(val.name) == id;
+      });
 
     return (
       <>
