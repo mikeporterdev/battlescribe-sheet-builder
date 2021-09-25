@@ -30,6 +30,8 @@ import { PsykerTableComponent } from "./characteristic-tables/PsykerTableCompone
 import { WoundTrackTableComponent } from "./characteristic-tables/WoundTrackTableComponent";
 import { ExplodesTable } from "./characteristic-tables/ExplodesTable";
 import { TransportTableComponent } from "./characteristic-tables/TransportTableComponent";
+import { CostsComponent } from "./CostsComponent";
+import { KillSelectionButton } from "./controls/kill-selection-button";
 
 interface SelectionComponentProps {
   selection: Selection;
@@ -123,6 +125,11 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
     });
   return (
     <div className={"unit-container"} id={selection.id}>
+      <h4 className={"top-unit-name"}>
+        {selection.name}
+        <CostsComponent costs={selection.costs} />
+        <KillSelectionButton selectionId={selection.id} />
+      </h4>
       <SelectionInfoComponent selection={selection} />
       <div>
         <ModelSelectionComponent modelProfiles={modelProfiles} />

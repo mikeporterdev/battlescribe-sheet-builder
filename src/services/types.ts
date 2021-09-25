@@ -89,6 +89,7 @@ export type BSCategory = {
 export type SelectionType = "upgrade" | "unit" | "model";
 export type Selection = {
   id: string;
+  alive: boolean;
   number: number;
   type: SelectionType;
   customName?: string;

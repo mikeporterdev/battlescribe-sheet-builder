@@ -14,17 +14,20 @@ export const RosterForceNavigator: React.FC<RosterForceNavigatorProps> = ({
     <li>
       {force.name}
       <ul>
-        {force.selections.sort(sortSelectionUnitCategories).map((selection) => (
-          <li key={`router-navigator-selection-${selection.id}`}>
-            <HashLink
-              key={`navigator-link-${selection.id}`}
-              smooth
-              to={"#" + selection.id}
-            >
-              {selection.name}
-            </HashLink>
-          </li>
-        ))}
+        {force.selections
+          .filter((sel) => sel.alive)
+          .sort(sortSelectionUnitCategories)
+          .map((selection) => (
+            <li key={`router-navigator-selection-${selection.id}`}>
+              <HashLink
+                key={`navigator-link-${selection.id}`}
+                smooth
+                to={"#" + selection.id}
+              >
+                {selection.name}
+              </HashLink>
+            </li>
+          ))}
       </ul>
     </li>
   );

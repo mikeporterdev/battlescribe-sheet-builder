@@ -40,6 +40,7 @@ export const SelectionInfoComponent: React.FC<SelectionInfoComponentProps> = ({
         {selection.name}
         <CostsComponent costs={selection.costs} />
       </h4>
+
       <div className={"nested-selection"} id={selection.id}>
         <div className={"nested-selection-stats"}>
           {!!rules.length && (

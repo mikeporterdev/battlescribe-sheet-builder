@@ -189,6 +189,7 @@ export class Parser {
           const childSelections = this.toSelectionArray(bsSelection.selections);
           const selection: Selection = {
             id: uuidv4(),
+            alive: true,
             number: +bsSelection.$.number,
             type: bsSelection.$.type,
             name: bsSelection.$.name,

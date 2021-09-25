@@ -3,8 +3,11 @@
   padding: 16px;
   border: 1px solid #bbbbbb;
 }
-
 .unit-container > .selection-container > h4 {
+  display:none;
+}
+.top-unit-name {
+  margin-top: 4px;
   font-size: 18px;
   margin-bottom: 8px;
 };
