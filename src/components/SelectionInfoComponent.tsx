@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Selection } from "../services/types";
+import { Category, Profile, Selection, TypeName } from "../services/types";
 import { CostsComponent } from "./CostsComponent";
 import { sortByName } from "../utils/sort-by-name";
 import groupBy from "lodash/groupBy";
@@ -10,12 +10,33 @@ interface SelectionInfoComponentProps {
   qty?: number;
 }
 
+const getAllCategories = (
+  selection: Selection,
+  acc: Category[],
+): Category[] => {
+  if (selection.selections) {
+    return [
+      ...acc,
+      ...selection.categories,
+      ...selection.selections.flatMap((selection) => {
+        return getAllCategories(selection, acc);
+      }),
+    ];
+  } else {
+    return [...acc, ...selection.categories];
+  }
+};
+
 export const SelectionInfoComponent: React.FC<SelectionInfoComponentProps> = ({
   selection,
   qty,
 }) => {
   const rules = selection.rules;
-  const categories = selection.categories;
+  const categories = getAllCategories(selection, []).filter(
+    (val, id, array) => {
+      return array.map((i) => i.name).indexOf(val.name) == id;
+    },
+  );
 
   const upgradeSelections = selection.selections.filter(
     (sel) => sel.type === "upgrade",
