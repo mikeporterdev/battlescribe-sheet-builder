@@ -30,7 +30,7 @@ export const RosterNavigatorComponent: React.FC<RosterNavigatorComponentProps> =
                       <HashLink
                         key={`navigator-link-${selection.id}`}
                         smooth
-                        to={"/#" + selection.id}
+                        to={"#" + selection.id}
                       >
                         {selection.name}
                       </HashLink>
