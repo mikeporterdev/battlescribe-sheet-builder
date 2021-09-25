@@ -15,15 +15,14 @@ export const FileUploadComponent: React.FC<FileUploadComponentProps> = (
     const reader = new FileReader();
     reader.onload = async (e) => {
       const text = e.target.result;
-      console.log(text);
       const parse = await new Parser().parse(text as ArrayBuffer);
+      console.log("ROSTER", parse);
       setRoster(parse);
     };
     reader.readAsArrayBuffer(e.target.files[0]);
 
     // setRoster(e.target.files[0]);
   };
-  console.log(process.env);
   if (process.env.env === "local") {
     useEffect(() => {
       const readScribe = async () => {

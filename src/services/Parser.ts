@@ -2,7 +2,6 @@ import {
   BSCategory,
   BSCharacteristic,
   BSCost,
-  BSCostType,
   BSForce,
   BSProfile,
   BSRoster,
@@ -11,7 +10,6 @@ import {
   CalculatedCosts,
   Category,
   Cost,
-  CostType,
   Force,
   Profile,
   Roster,
@@ -32,6 +30,7 @@ import {
 import RawBufferLoader from "./loader/RawBufferLoader";
 import ProfileFactory from "./profile/ProfileFactory";
 import { v4 as uuidv4 } from "uuid";
+
 export class Parser {
   public async parse(path: ArrayBuffer): Promise<Roster> {
     const rosterLoader = new RawBufferLoader(path);
@@ -63,64 +62,46 @@ export class Parser {
   }
 
   private calculateCosts(selections: Selection[]): CalculatedCosts {
-    const costs = {
-      [CostType.PTS]: 0,
-      [CostType.PL]: 0,
-      [CostType.CP]: 0,
-    };
-
-    const getCost = (selection: Selection, costType: CostType): number =>
-      selection.costs.find((cost) => cost.name === costType)?.value || 0;
-
-    selections.forEach((selection) => {
-      costs.pts += getCost(selection, CostType.PTS);
-      costs.PL += getCost(selection, CostType.PL);
-      costs.CP += getCost(selection, CostType.CP);
-    });
+    const costs: Record<string, number> = selections
+      .flatMap((selection) => selection.costs)
+      .reduce((acc, cost) => {
+        if (acc[cost.name]) {
+          acc[cost.name] += cost.value;
+        } else {
+          acc[cost.name] = cost.value;
+        }
+        return acc;
+      }, {} as Record<string, number>);
 
     return costs;
   }
 
   private toCostArray(
     bsCosts: Array<{ cost: BSCost[] } | { costLimit: BSCost[] } | string>,
-    additionalCosts: CalculatedCosts = {
-      [CostType.PTS]: 0,
-      [CostType.PL]: 0,
-      [CostType.CP]: 0,
-    },
+    additionalCosts: CalculatedCosts = {},
   ): Cost[] {
-    const costs: Cost[] = [];
-
-    if (!bsCosts) return costs;
-
-    bsCosts.forEach((bsCosts) => {
-      (isBSCost(bsCosts)
-        ? bsCosts.cost
-        : isBSCostLimit(bsCosts)
-        ? bsCosts.costLimit
-        : []
-      ).forEach((bsCost) => {
-        let name: CostType;
-        switch (bsCost.$.name) {
-          case BSCostType.PTS:
-            name = CostType.PTS;
-            break;
-          case BSCostType.CP:
-            name = CostType.CP;
-            break;
-          case BSCostType.PL:
-          default:
-            name = CostType.PL;
-        }
-
-        costs.push({
-          value: +bsCost.$.value + additionalCosts[name],
-          name,
-        });
+    console.log("bscosts", bsCosts);
+    const costs: Cost[] = bsCosts
+      ?.flatMap((bsCosts) => {
+        return isBSCost(bsCosts)
+          ? bsCosts.cost
+          : isBSCostLimit(bsCosts)
+          ? bsCosts.costLimit
+          : [];
+      })
+      .map((bsCost) => {
+        console.log(bsCost);
+        const name = bsCost.$.name;
+        return {
+          value:
+            +bsCost.$.value +
+            (additionalCosts[name] ? additionalCosts[name] : 0),
+          name: name,
+        };
       });
-    });
+    console.log("costs", costs);
 
-    return costs;
+    return costs ?? [];
   }
 
   private toForceArray(
@@ -129,6 +110,7 @@ export class Parser {
     const forces: Force[] =
       bsForces?.filter(isBSForce).flatMap((bsForces) => {
         return bsForces.force.map((bsForce) => {
+          console.log("BSForce", bsForce);
           const forceId = bsForce.$.name;
           return {
             id: forceId,
@@ -139,6 +121,7 @@ export class Parser {
             forces: this.toForceArray(bsForce.forces),
             rules: this.toRuleArray(bsForce.rules),
             selections: this.toSelectionArray(bsForce.selections),
+            costs: [],
           };
         });
       }) ?? [];
@@ -198,11 +181,17 @@ export class Parser {
     return rules;
   }
 
+  private cleanBsSelections(
+    bsSelections: Array<{ selection: BSSelection[] } | string>,
+  ): { selection: BSSelection[] }[] {
+    return bsSelections?.filter(isBSSelection);
+  }
+
   private toSelectionArray(
     bsSelections: Array<{ selection: BSSelection[] } | string>,
   ): Selection[] {
     return (
-      bsSelections?.filter(isBSSelection).flatMap((bsSelections) => {
+      this.cleanBsSelections(bsSelections)?.flatMap((bsSelections) => {
         return bsSelections.selection.map((bsSelection) => {
           const childSelections = this.toSelectionArray(bsSelection.selections);
           const selection: Selection = {

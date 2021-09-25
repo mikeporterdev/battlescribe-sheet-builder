@@ -26,6 +26,7 @@ export const ForceComponent: React.FC<ForceComponentProps> = ({ force }) => {
       <div className={"force-name"}>{force.name}</div>
       <div className={"rules"}>
         Rules: {force.rules.map((rule) => rule.name).join(", ")}
+        <div>COSTS</div>
         {Object.keys(selectionsByCategory).map((categoryName) => {
           return (
             <ForceCategoryComponent

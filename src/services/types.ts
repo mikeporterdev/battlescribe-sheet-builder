@@ -34,7 +34,7 @@ export type BSRoster = {
 
 export type Cost = {
   value: number;
-  name: CostType;
+  name: string;
 };
 
 export type BSCost = {
@@ -43,12 +43,6 @@ export type BSCost = {
     name: BSCostType;
   };
 };
-
-export enum CostType {
-  PL = "PL",
-  PTS = "pts",
-  CP = "CP",
-}
 
 export enum BSCostType {
   PL = " PL",
@@ -65,6 +59,7 @@ export type Force = {
   forces: Force[];
   selections: Selection[];
   rules: Rule[];
+  costs: Cost[];
 };
 
 export type BSForce = {
@@ -294,10 +289,6 @@ export interface BSExplosionCharacteristic extends BSCharacteristic {
     name: "Dice roll" | "Distance" | "Mortal wounds";
   };
 }
-export type CalculatedCosts = {
-  [CostType.PTS]: number;
-  [CostType.PL]: number;
-  [CostType.CP]: number;
-};
+export type CalculatedCosts = Record<string, number>;
 
 export type LoaderInput = string | Buffer | unknown;

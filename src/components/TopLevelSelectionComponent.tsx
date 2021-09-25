@@ -57,7 +57,6 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
   const unknownProfiles = getAllProfiles(selection, []).filter(
     (i) => i.typeName === "Unknown",
   );
-  console.log(unknownProfiles);
   return (
     <div className={"unit-container"} id={selection.id}>
       <SelectionInfoComponent selection={selection} />
