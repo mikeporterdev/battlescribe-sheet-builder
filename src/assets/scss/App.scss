@@ -1,14 +1,9 @@
 $bg-color: yellow;
 $border-color: red;
 
-.app {
+.app-container {
   font-family: helvetica, arial, sans-serif;
-  padding: 2em;
-  border: 5px solid $border-color;
-
-  p {
-    background-color: $bg-color;
-  }
+  margin: 32px 16px 16px;
 }
 
 body, html {

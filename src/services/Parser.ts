@@ -91,6 +91,8 @@ export class Parser {
   ): Cost[] {
     const costs: Cost[] = [];
 
+    if (!bsCosts) return costs;
+
     bsCosts.forEach((bsCosts) => {
       (isBSCost(bsCosts)
         ? bsCosts.cost
