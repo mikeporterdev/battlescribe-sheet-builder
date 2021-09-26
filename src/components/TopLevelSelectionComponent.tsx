@@ -32,6 +32,7 @@ import { ExplodesTable } from "./characteristic-tables/ExplodesTable";
 import { TransportTableComponent } from "./characteristic-tables/TransportTableComponent";
 import { CostsComponent } from "./CostsComponent";
 import { KillSelectionButtonComponent } from "./controls/KillSelectionButtonComponent";
+import { UnitNameComponent } from "./UnitNameComponent";
 
 interface SelectionComponentProps {
   selection: Selection;
@@ -101,8 +102,8 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
   return (
     <div className={"unit-container"} id={selection.id}>
       <h4 className={"top-unit-name"}>
-        {selection.name}
-        <CostsComponent costs={selection.costs} />
+        <UnitNameComponent selection={selection} />
+        {selection.alive && <CostsComponent costs={selection.costs} />}
         <KillSelectionButtonComponent selectionId={selection.id} />
       </h4>
       {selection.alive && (

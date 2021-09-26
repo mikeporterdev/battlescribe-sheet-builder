@@ -2,6 +2,7 @@ import * as React from "react";
 import { Category } from "../services/types";
 import { OverlayTrigger, Popover } from "react-bootstrap";
 import { useRoster } from "./contexts/roster-context";
+import { UnitNameComponent } from "./UnitNameComponent";
 
 interface CategoryComponentProps {
   category: Category;
@@ -28,8 +29,8 @@ export const CategoryComponent: React.FC<CategoryComponentProps> = (props) => {
             {props.category.name}:
             <ul>
               {matchingSelections?.map((i) => (
-                <li>
-                  {i.name} {!i.alive && "(Dead)"}
+                <li key={`popover-content-unit-name-${i.id}`}>
+                  <UnitNameComponent selection={i} />
                 </li>
               ))}
             </ul>
@@ -45,7 +46,7 @@ export const CategoryComponent: React.FC<CategoryComponentProps> = (props) => {
       placement={"right"}
       overlay={popover}
     >
-      <b>{props.category.name}</b>
+      <span style={{ borderBottom: "1px dashed" }}>{props.category.name}</span>
     </OverlayTrigger>
   );
 };
