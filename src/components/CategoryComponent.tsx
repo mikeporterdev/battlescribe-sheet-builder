@@ -3,6 +3,7 @@ import { Category } from "../services/types";
 import { OverlayTrigger, Popover } from "react-bootstrap";
 import { useRoster } from "./contexts/roster-context";
 import { UnitNameComponent } from "./UnitNameComponent";
+import { HashLink } from "react-router-hash-link";
 
 interface CategoryComponentProps {
   category: Category;
@@ -28,9 +29,15 @@ export const CategoryComponent: React.FC<CategoryComponentProps> = (props) => {
             The following <b>units</b> in your sheet have the keyword{" "}
             {props.category.name}:
             <ul>
-              {matchingSelections?.map((i) => (
-                <li key={`popover-content-unit-name-${i.id}`}>
-                  <UnitNameComponent selection={i} />
+              {matchingSelections?.map((selection) => (
+                <li key={`popover-content-unit-name-${selection.id}`}>
+                  <HashLink
+                    key={`navigator-link-${selection.id}`}
+                    smooth
+                    to={"#" + selection.id}
+                  >
+                    <UnitNameComponent selection={selection} />
+                  </HashLink>
                 </li>
               ))}
             </ul>
@@ -42,9 +49,10 @@ export const CategoryComponent: React.FC<CategoryComponentProps> = (props) => {
 
   return (
     <OverlayTrigger
-      trigger={["hover", "focus"]}
+      trigger={["click"]}
       placement={"right"}
       overlay={popover}
+      rootClose
     >
       <span style={{ borderBottom: "1px dashed" }}>{props.category.name}</span>
     </OverlayTrigger>
