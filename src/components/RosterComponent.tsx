@@ -37,7 +37,7 @@ export const RosterComponent: React.FC<RosterComponentProps> = ({ roster }) => {
         <ForceComponent key={force.name} force={force} />
       ))}
       <h3>Force Rules</h3>
-      <ul>
+      <ul style={{ whiteSpace: "pre-line" }}>
         {roster.forces
           .flatMap((force) => {
             return force.rules;
@@ -54,7 +54,7 @@ export const RosterComponent: React.FC<RosterComponentProps> = ({ roster }) => {
           ))}
       </ul>
       <h3>Selection Rules</h3>
-      <ul>
+      <ul style={{ whiteSpace: "pre-line" }}>
         {flattenSelectionRules(roster)
           .filter((val, id, array) => {
             return array.map((i) => i.name).indexOf(val.name) == id;
