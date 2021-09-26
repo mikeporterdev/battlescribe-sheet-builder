@@ -176,7 +176,7 @@ export class Parser {
         bsCategories.category.forEach((bsCategory) => {
           categories.push({
             primary: bsCategory.$.primary === "true",
-            name: bsCategory.$.name,
+            name: bsCategory.$.name.replace("Faction: ", ""),
           });
         });
       }

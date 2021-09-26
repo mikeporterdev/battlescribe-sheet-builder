@@ -15,9 +15,9 @@ export const CategoryComponent: React.FC<CategoryComponentProps> = (props) => {
   const popover = (popoverProps: CategoryComponentProps) => {
     const selections = roster.categoryMap.selections;
     const matchingSelections = selections[
-      Object.keys(selections).find(
-        (key) => key.toLowerCase() === props.category.name.toLowerCase(),
-      )
+      Object.keys(selections).find((key) => {
+        return key.toLowerCase() === props.category.name.toLowerCase();
+      })
     ].filter((val, id, array) => {
       return array.map((i) => i.name).indexOf(val.name) == id;
     });

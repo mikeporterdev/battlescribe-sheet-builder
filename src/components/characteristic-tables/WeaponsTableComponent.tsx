@@ -50,21 +50,21 @@ export const WeaponsTableComponent: React.FC<WeaponsTableProps> = ({
   };
   return (
     <>
-      <label>
-        Ranged
+      <label style={{ marginRight: "8px" }}>
         <input
           type={"checkbox"}
           defaultChecked={showTypes.ranged}
           onChange={() => handleChange("ranged")}
-        />
+        />{" "}
+        Show Ranged
       </label>
       <label>
-        Melee
         <input
           type={"checkbox"}
           defaultChecked={showTypes.melee}
           onChange={() => handleChange("melee")}
-        />
+        />{" "}
+        Show Melee
       </label>
       {!!filteredWeapons.length && (
         <table>
