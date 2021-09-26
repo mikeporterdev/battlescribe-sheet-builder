@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useRoster } from "./contexts/roster-context";
 import { CategoryComponent } from "./CategoryComponent";
+import { CombinedCategoryComponent } from "./CombinedCategoryComponent";
 
 interface ScanCategoryTextComponentProps {
   text: string;
@@ -34,6 +35,11 @@ const tokenIndexes = (
   return filter;
 };
 
+interface Lump {
+  type: "keyword" | "text";
+  text: string;
+}
+
 const splitOn = (slicable: string, ...indices) =>
   [0, ...indices].map((n, i, m) => slicable.slice(n, m[i + 1]));
 
@@ -51,7 +57,7 @@ export const ScanCategoryTextComponent: React.FC<ScanCategoryTextComponentProps>
       text,
       ...message.flatMap((i) => [i.start, i.end]),
     );
-    const parsedAndSplit = splitString.map((t) => {
+    const parsedAndSplit: Lump[] = splitString.map((t) => {
       if (allCategories.find((cat) => cat === t)) {
         return { type: "keyword", text: t };
       } else {
@@ -59,19 +65,57 @@ export const ScanCategoryTextComponent: React.FC<ScanCategoryTextComponentProps>
       }
     });
 
+    const splitAndGroupedCategories = parsedAndSplit.reduce((acc, i) => {
+      if (i.type === "text" && i.text === " ") return acc;
+      if (i.type === "text") {
+        acc.push([i], []);
+      } else {
+        const lastElemInList = acc[acc.length - 1];
+        if (lastElemInList) {
+          lastElemInList.push(i);
+        } else {
+          acc.push([i]);
+        }
+      }
+      return acc;
+    }, [] as Lump[][]);
+    console.log(splitAndGroupedCategories);
+
     return (
       <>
-        {parsedAndSplit.map((textLump) => {
-          if (textLump.type === "text") {
-            return <span>{textLump.text}</span>;
-          } else {
-            return (
-              <CategoryComponent
-                category={{ name: textLump.text, primary: false }}
-              />
-            );
-          }
+        {splitAndGroupedCategories.map((lumpArray) => {
+          return (
+            <>
+              {lumpArray[0]?.type === "text" && (
+                <span>{lumpArray[0].text}</span>
+              )}
+              {lumpArray[0]?.type === "keyword" && (
+                <CombinedCategoryComponent
+                  categories={lumpArray.map((lump) => ({
+                    name: lump.text,
+                    primary: false,
+                  }))}
+                />
+              )}
+            </>
+          );
         })}
       </>
     );
+
+    // return (
+    //   <>
+    //     {parsedAndSplit.map((textLump) => {
+    //       if (textLump.type === "text") {
+    //         return <span>{textLump.text}</span>;
+    //       } else {
+    //         return (
+    //           <CategoryComponent
+    //             category={{ name: textLump.text, primary: false }}
+    //           />
+    //         );
+    //       }
+    //     })}
+    //   </>
+    // );
   };
