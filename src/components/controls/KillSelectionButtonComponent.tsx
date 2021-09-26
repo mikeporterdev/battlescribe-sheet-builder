@@ -22,6 +22,7 @@ export const KillSelectionButtonComponent: React.FC<KillSelectionButtonProps> =
     const clickHandler = async () => {
       selection.alive = !selection.alive;
       setRoster({ ...roster });
+      localStorage.setItem("roster", JSON.stringify({ ...roster }));
     };
 
     return (

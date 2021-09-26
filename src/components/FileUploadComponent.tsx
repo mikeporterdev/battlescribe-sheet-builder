@@ -14,11 +14,14 @@ export const FileUploadComponent: React.FC = () => {
       const parse = await new Parser().parse(text as ArrayBuffer);
       console.log("ROSTER", parse);
       setRoster(parse);
+      localStorage.setItem("roster", JSON.stringify(parse));
     };
     reader.readAsArrayBuffer(e.target.files[0]);
-
-    // setRoster(e.target.files[0]);
   };
+
+  const storedRoster = localStorage.getItem("roster");
+  if (storedRoster) setRoster(JSON.parse(storedRoster));
+
   // if (process.env.env === "local") {
   //   useEffect(() => {
   //     const readScribe = async () => {

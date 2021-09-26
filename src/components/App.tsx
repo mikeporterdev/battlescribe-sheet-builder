@@ -12,6 +12,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { NoRosterPageComponent } from "../NoRosterPageComponent";
 const App = () => {
   const [roster, setRoster] = useState<Roster>(undefined);
+  const onClick = () => {
+    setRoster(undefined);
+    localStorage.removeItem("roster");
+  };
   return (
     <BrowserRouter>
       <RosterContext.Provider value={{ roster, setRoster }}>
@@ -19,7 +23,7 @@ const App = () => {
         <div className={"app-container"}>
           {roster && (
             <div style={{ width: "100%", textAlign: "center" }}>
-              <a href={"#"} onClick={() => setRoster(undefined)}>
+              <a href={"#"} onClick={onClick}>
                 Clear Sheet
               </a>
             </div>
