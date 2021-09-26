@@ -9,13 +9,21 @@ import { RosterContext } from "./contexts/roster-context";
 import { useState } from "react";
 import { Roster } from "../services/types";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { NoRosterPageComponent } from "../NoRosterPageComponent";
 const App = () => {
   const [roster, setRoster] = useState<Roster>(undefined);
   return (
     <BrowserRouter>
       <RosterContext.Provider value={{ roster, setRoster }}>
-        <FileUploadComponent />
+        {!roster && <NoRosterPageComponent />}
         <div className={"app-container"}>
+          {roster && (
+            <div style={{ width: "100%", textAlign: "center" }}>
+              <a href={"#"} onClick={() => setRoster(undefined)}>
+                Clear Sheet
+              </a>
+            </div>
+          )}
           {roster && <RosterComponent roster={roster} />}
           {roster && <RosterNavigatorComponent roster={roster} />}
         </div>

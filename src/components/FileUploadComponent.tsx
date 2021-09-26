@@ -19,14 +19,14 @@ export const FileUploadComponent: React.FC = () => {
 
     // setRoster(e.target.files[0]);
   };
-  if (process.env.env === "local") {
-    useEffect(() => {
-      const readScribe = async () => {
-        setRoster(await readBattlescribe());
-      };
-      readScribe();
-    }, [readBattlescribe, setRoster]);
-  }
+  // if (process.env.env === "local") {
+  //   useEffect(() => {
+  //     const readScribe = async () => {
+  //       setRoster(await readBattlescribe());
+  //     };
+  //     readScribe();
+  //   }, [readBattlescribe, setRoster]);
+  // }
 
   return <input type={"file"} name={"file"} onChange={changeHandler} />;
 };
