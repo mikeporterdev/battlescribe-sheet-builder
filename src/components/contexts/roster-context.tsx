@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext } from "react";
 import { Roster } from "../../services/types";
 
 export type RosterContextType = {
@@ -8,7 +8,7 @@ export type RosterContextType = {
 
 export const RosterContext = createContext<RosterContextType>({
   roster: undefined,
-  setRoster: (showRoster) => console.log("Couldn't set roster"),
+  setRoster: () => console.log("Couldn't set roster"),
 });
 
-export const useRoster = () => useContext(RosterContext);
+export const useRoster = (): RosterContextType => useContext(RosterContext);

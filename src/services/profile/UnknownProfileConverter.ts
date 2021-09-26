@@ -1,16 +1,21 @@
-import AbstractProfileConverter from './AbstractProfileConverter';
-import { UnknownProfile, BSCharacteristic, TypeName } from '../types';
+import AbstractProfileConverter from "./AbstractProfileConverter";
+import { UnknownProfile, BSCharacteristic, TypeName } from "../types";
 
-class UnknownProfileConverter extends AbstractProfileConverter<UnknownProfile, BSCharacteristic> {
+class UnknownProfileConverter extends AbstractProfileConverter<
+  UnknownProfile,
+  BSCharacteristic
+> {
   constructor(unexpectedTypeName: string) {
     super({
       typeName: TypeName.UNKNOWN,
-      name: '-',
-      unexpectedTypeName
+      name: "-",
+      unexpectedTypeName,
     });
   }
 
-  protected getProperty(bsCharacteristic: BSCharacteristic): Partial<UnknownProfile> {
+  protected getProperty(
+    bsCharacteristic: BSCharacteristic,
+  ): Partial<UnknownProfile> {
     return { [bsCharacteristic.$.name]: bsCharacteristic._ };
   }
 }

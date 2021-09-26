@@ -1,42 +1,47 @@
-import AbstractProfileConverter from './AbstractProfileConverter';
-import { UnitProfile, BSUnitCharacteristic, TypeName } from '../types';
+import AbstractProfileConverter from "./AbstractProfileConverter";
+import { UnitProfile, BSUnitCharacteristic, TypeName } from "../types";
 
-class UnitProfileConverter extends AbstractProfileConverter<UnitProfile, BSUnitCharacteristic> {
+class UnitProfileConverter extends AbstractProfileConverter<
+  UnitProfile,
+  BSUnitCharacteristic
+> {
   constructor() {
     super({
       typeName: TypeName.UNIT,
-      name: '-',
-      movement: '-',
-      weaponSkill: '-',
-      ballisticSkill: '-',
-      strength: '-',
-      toughness: '-',
-      wounds: '-',
-      attacks: '-',
-      leadership: '-',
-      save: '-'
+      name: "-",
+      movement: "-",
+      weaponSkill: "-",
+      ballisticSkill: "-",
+      strength: "-",
+      toughness: "-",
+      wounds: "-",
+      attacks: "-",
+      leadership: "-",
+      save: "-",
     });
   }
 
-  protected getProperty(bsCharacteristic: BSUnitCharacteristic): Partial<UnitProfile> {
+  protected getProperty(
+    bsCharacteristic: BSUnitCharacteristic,
+  ): Partial<UnitProfile> {
     switch (bsCharacteristic.$.name) {
-      case 'M':
+      case "M":
         return { movement: bsCharacteristic._ };
-      case 'WS':
+      case "WS":
         return { weaponSkill: bsCharacteristic._ };
-      case 'BS':
+      case "BS":
         return { ballisticSkill: bsCharacteristic._ };
-      case 'S':
+      case "S":
         return { strength: bsCharacteristic._ };
-      case 'T':
+      case "T":
         return { toughness: bsCharacteristic._ };
-      case 'W':
+      case "W":
         return { wounds: bsCharacteristic._ };
-      case 'A':
+      case "A":
         return { attacks: bsCharacteristic._ };
-      case 'Ld':
+      case "Ld":
         return { leadership: bsCharacteristic._ };
-      case 'Save':
+      case "Save":
         return { save: bsCharacteristic._ };
     }
   }

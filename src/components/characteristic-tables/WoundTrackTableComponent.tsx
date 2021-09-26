@@ -9,6 +9,7 @@ export const WoundTrackTableComponent: React.FC<WoundTrackTableComponentProps> =
   ({ profiles }) => {
     if (!profiles.length) return null;
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { name, remainingWounds, typeName, id, ...rest } = profiles[0];
 
     return (

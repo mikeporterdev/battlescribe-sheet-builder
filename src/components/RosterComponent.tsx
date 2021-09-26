@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Profile, Roster, Rule, Selection, TypeName } from "../services/types";
+import { Roster, Rule, Selection } from "../services/types";
 import "./../assets/scss/Roster.scss";
 import { ForceComponent } from "./ForceComponent";
 import { CostsComponent } from "./CostsComponent";

@@ -37,31 +37,6 @@ interface SelectionComponentProps {
   selection: Selection;
 }
 
-const findSelectionsByType = (
-  selection: Selection,
-  acc: Selection[],
-  selectionType: SelectionType,
-): Selection[] => {
-  if (selection.type === selectionType) {
-    return [
-      ...acc,
-      selection,
-      ...selection.selections.flatMap((sel) =>
-        findSelectionsByType(sel, acc, selectionType),
-      ),
-    ];
-  } else if (!selection.selections.length) {
-    return acc;
-  } else {
-    return [
-      ...acc,
-      ...selection.selections.flatMap((sel) =>
-        findSelectionsByType(sel, acc, selectionType),
-      ),
-    ];
-  }
-};
-
 const getAllProfiles = (
   selection: Selection,
   acc: Profile<TypeName>[],

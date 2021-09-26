@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Category, Profile, Selection, TypeName } from "../services/types";
+import { Category, Selection } from "../services/types";
 import { CostsComponent } from "./CostsComponent";
 import { sortByName } from "../utils/sort-by-name";
 import groupBy from "lodash/groupBy";

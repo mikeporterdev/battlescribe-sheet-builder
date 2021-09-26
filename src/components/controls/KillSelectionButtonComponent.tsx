@@ -19,7 +19,7 @@ export const KillSelectionButtonComponent: React.FC<KillSelectionButtonProps> =
     const { roster, setRoster } = useRoster();
 
     const selection = findSelectionForRoster(roster, props.selectionId);
-    const clickHandler = async (e) => {
+    const clickHandler = async () => {
       selection.alive = !selection.alive;
       setRoster({ ...roster });
     };

@@ -1,8 +1,7 @@
 import * as React from "react";
+import { useState } from "react";
 import { Roster } from "../../services/types";
 import "../../assets/scss/RosterNavigator.scss";
-import { HashLink } from "react-router-hash-link";
-import { useState } from "react";
 import { RosterForceNavigator } from "./RosterForceNavigator";
 
 interface RosterNavigatorComponentProps {

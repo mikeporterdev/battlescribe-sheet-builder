@@ -31,7 +31,6 @@ import {
 import RawBufferLoader from "./loader/RawBufferLoader";
 import ProfileFactory from "./profile/ProfileFactory";
 import { v4 as uuidv4 } from "uuid";
-import groupBy from "lodash/groupBy";
 import { getAllCategories } from "../components/SelectionInfoComponent";
 
 export class Parser {

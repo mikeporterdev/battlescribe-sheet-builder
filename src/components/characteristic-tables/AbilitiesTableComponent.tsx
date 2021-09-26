@@ -1,11 +1,11 @@
 import * as React from "react";
-import { AbilityProfile, Profile, Selection } from "../../services/types";
+import { AbilityProfile, Profile, TypeName } from "../../services/types";
 import { isAbilityProfile } from "../../services/guards";
 import { sortByName } from "../../utils/sort-by-name";
 import { ScanCategoryTextComponent } from "../ScanCategoryTextComponent";
 
 interface AbilitiesTableComponentProps {
-  profiles: Profile<any>[];
+  profiles: Profile<TypeName>[];
 }
 
 export const AbilitiesTableComponent: React.FC<AbilitiesTableComponentProps> =

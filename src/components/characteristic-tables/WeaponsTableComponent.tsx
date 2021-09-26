@@ -1,15 +1,14 @@
 import * as React from "react";
+import { useState } from "react";
 import { WeaponProfile } from "../../services/types";
 import { isWeaponProfile } from "../../services/guards";
-import { useState } from "react";
-import { FormCheck } from "react-bootstrap";
 
 interface WeaponsTableProps {
   profiles: WeaponProfile[];
 }
 
 const meleeTypes = ["Pistol", "Melee"];
-const rangedTypes = ["Pistol", "Assault", "Rapid Fire", "Heavy"];
+const rangedTypes = ["Pistol", "Assault", "Rapid Fire", "Heavy", "Grenade"];
 
 export const WeaponsTableComponent: React.FC<WeaponsTableProps> = ({
   profiles,

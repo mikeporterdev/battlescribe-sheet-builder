@@ -4,11 +4,7 @@ import { Parser } from "../services/Parser";
 import { useEffect } from "react";
 import { readBattlescribe } from "../services/parse-battlescribe-list";
 
-interface FileUploadComponentProps {}
-
-export const FileUploadComponent: React.FC<FileUploadComponentProps> = (
-  props,
-) => {
+export const FileUploadComponent: React.FC = () => {
   const { setRoster } = useRoster();
 
   const changeHandler = async (e) => {

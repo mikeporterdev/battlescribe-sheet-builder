@@ -1,26 +1,31 @@
-import AbstractProfileConverter from './AbstractProfileConverter';
-import { PsykerProfile, BSPsykerCharacteristic, TypeName } from '../types';
+import AbstractProfileConverter from "./AbstractProfileConverter";
+import { PsykerProfile, BSPsykerCharacteristic, TypeName } from "../types";
 
-class PsykerProfileConverter extends AbstractProfileConverter<PsykerProfile, BSPsykerCharacteristic> {
+class PsykerProfileConverter extends AbstractProfileConverter<
+  PsykerProfile,
+  BSPsykerCharacteristic
+> {
   constructor() {
     super({
       typeName: TypeName.PSYKER,
-      name: '-',
-      cast: '-',
-      deny: '-',
-      powersKnown: '-'
+      name: "-",
+      cast: "-",
+      deny: "-",
+      powersKnown: "-",
     });
   }
 
-  protected getProperty(bsCharacteristic: BSPsykerCharacteristic): Partial<PsykerProfile> {
+  protected getProperty(
+    bsCharacteristic: BSPsykerCharacteristic,
+  ): Partial<PsykerProfile> {
     switch (bsCharacteristic.$.name) {
-      case 'Cast':
+      case "Cast":
         return { cast: bsCharacteristic._ };
-      case 'Deny':
+      case "Deny":
         return { deny: bsCharacteristic._ };
-      case 'Powers Known':
+      case "Powers Known":
         return { powersKnown: bsCharacteristic._ };
-      case 'Other':
+      case "Other":
         return { other: bsCharacteristic._ };
     }
   }
