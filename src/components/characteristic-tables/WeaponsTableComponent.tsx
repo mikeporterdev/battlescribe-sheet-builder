@@ -8,7 +8,14 @@ interface WeaponsTableProps {
 }
 
 const meleeTypes = ["Pistol", "Melee"];
-const rangedTypes = ["Pistol", "Assault", "Rapid Fire", "Heavy", "Grenade"];
+const rangedTypes = [
+  "Pistol",
+  "Assault",
+  "Rapid Fire",
+  "Heavy",
+  "Grenade",
+  "Dakka",
+];
 
 export const WeaponsTableComponent: React.FC<WeaponsTableProps> = ({
   profiles,
