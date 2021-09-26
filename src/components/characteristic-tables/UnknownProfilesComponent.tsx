@@ -1,5 +1,6 @@
 import * as React from "react";
 import { UnknownProfile } from "../../services/types";
+import { ScanCategoryTextComponent } from "../ScanCategoryTextComponent";
 
 interface UnknownProfilesComponentProps {
   profiles: UnknownProfile[];
@@ -44,14 +45,24 @@ export const UnknownProfilesComponent: React.FC<UnknownProfilesComponentProps> =
                   })}
                 </thead>
                 <tbody>
-                  {tables[tableName].profiles.map((profile) => (
-                    <tr>
-                      <td>{profile.name}</td>
-                      {tables[tableName].headers.map((header) => {
-                        return <td>{profile[header]}</td>;
-                      })}
-                    </tr>
-                  ))}
+                  {tables[tableName].profiles
+                    .filter((val, id, array) => {
+                      return array.map((i) => i.name).indexOf(val.name) == id;
+                    })
+                    .map((profile) => (
+                      <tr>
+                        <td>{profile.name}</td>
+                        {tables[tableName].headers.map((header) => {
+                          return (
+                            <td>
+                              <ScanCategoryTextComponent
+                                text={profile[header]}
+                              />
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </>

@@ -12,12 +12,13 @@ export const CategoryComponent: React.FC<CategoryComponentProps> = (props) => {
 
   const popover = (popoverProps: CategoryComponentProps) => {
     const selections = roster.categoryMap.selections;
-    const matchingCategories =
-      selections[
-        Object.keys(selections).find(
-          (key) => key.toLowerCase() === props.category.name.toLowerCase(),
-        )
-      ];
+    const matchingSelections = selections[
+      Object.keys(selections).find(
+        (key) => key.toLowerCase() === props.category.name.toLowerCase(),
+      )
+    ].filter((val, id, array) => {
+      return array.map((i) => i.name).indexOf(val.name) == id;
+    });
     return (
       <Popover {...popoverProps} id="popover-basic">
         <Popover.Title as="h3">Keyword: {props.category.name}</Popover.Title>
@@ -26,8 +27,10 @@ export const CategoryComponent: React.FC<CategoryComponentProps> = (props) => {
             The following <b>units</b> in your sheet have the keyword{" "}
             {props.category.name}:
             <ul>
-              {matchingCategories?.map((i) => (
-                <li>{i.name}</li>
+              {matchingSelections?.map((i) => (
+                <li>
+                  {i.name} {!i.alive && "(Dead)"}
+                </li>
               ))}
             </ul>
           </>
