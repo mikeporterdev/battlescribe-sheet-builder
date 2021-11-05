@@ -7,6 +7,7 @@ const commonConfig = require("./common");
 module.exports = merge(commonConfig, {
   mode: "production",
   entry: "./index.tsx",
+  target: "https://www.betterscribe.app"
   output: {
     filename: "js/bundle.[contenthash].min.js",
     path: resolve(__dirname, "../../deploy"),
