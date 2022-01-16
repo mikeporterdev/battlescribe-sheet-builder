@@ -10,7 +10,6 @@ export const FileUploadComponent: React.FC = () => {
     reader.onload = async (e) => {
       const text = e.target.result;
       const parse = await new Parser().parse(text as ArrayBuffer);
-      console.log("ROSTER", parse);
       setRoster(parse);
       localStorage.setItem("roster", JSON.stringify(parse));
     };

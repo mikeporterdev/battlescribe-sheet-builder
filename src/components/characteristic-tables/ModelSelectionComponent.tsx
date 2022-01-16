@@ -1,5 +1,5 @@
 import * as React from "react";
-import { UnitProfile } from "../../services/types";
+import { AbilityProfile, UnitProfile } from "../../services/types";
 import { ProfileComponent } from "./ProfileComponent";
 import "../../assets/scss/ModelTable.scss";
 

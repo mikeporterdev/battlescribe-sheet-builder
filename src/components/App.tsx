@@ -10,6 +10,7 @@ import { useState } from "react";
 import { Roster } from "../services/types";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { NoRosterPageComponent } from "../NoRosterPageComponent";
+import { RosterLookupComponent } from "./RosterLookupComponent";
 const App = () => {
   const [roster, setRoster] = useState<Roster>(undefined);
   const onClick = () => {
@@ -29,6 +30,7 @@ const App = () => {
             </div>
           )}
           {roster && <RosterComponent roster={roster} />}
+          {roster && <RosterLookupComponent roster={roster} />}
           {roster && <RosterNavigatorComponent roster={roster} />}
         </div>
       </RosterContext.Provider>

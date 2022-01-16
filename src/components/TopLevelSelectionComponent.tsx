@@ -15,7 +15,7 @@ import {
 } from "../services/types";
 import { ModelSelectionComponent } from "./characteristic-tables/ModelSelectionComponent";
 import "../assets/scss/TopLevelSelectionComponent.scss";
-import { WeaponsTableComponent } from "./characteristic-tables/WeaponsTableComponent";
+import { WeaponsTableWithFilterComponent } from "./characteristic-tables/WeaponsTableWithFilterComponent";
 import { AbilitiesTableComponent } from "./characteristic-tables/AbilitiesTableComponent";
 import { SelectionInfoComponent } from "./SelectionInfoComponent";
 import { UnknownProfilesComponent } from "./characteristic-tables/UnknownProfilesComponent";
@@ -38,7 +38,7 @@ interface SelectionComponentProps {
   selection: Selection;
 }
 
-const getAllProfiles = (
+export const getAllProfiles = (
   selection: Selection,
   acc: Profile<TypeName>[],
 ): Profile<TypeName>[] => {
@@ -112,7 +112,7 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
           <div>
             <ModelSelectionComponent modelProfiles={modelProfiles} />
             <WoundTrackTableComponent profiles={woundTrackProfiles} />
-            <WeaponsTableComponent profiles={weaponProfiles} />
+            <WeaponsTableWithFilterComponent profiles={weaponProfiles} />
             <AbilitiesTableComponent profiles={allNestedProfiles} />
             <PsykerTableComponent profiles={psykerProfiles} />
             <PsychicPowerTableComponent profiles={psychicPowerProfiles} />

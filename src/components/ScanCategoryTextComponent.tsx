@@ -79,7 +79,6 @@ export const ScanCategoryTextComponent: React.FC<ScanCategoryTextComponentProps>
       }
       return acc;
     }, [] as Lump[][]);
-    console.log(splitAndGroupedCategories);
 
     return (
       <>
