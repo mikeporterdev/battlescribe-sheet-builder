@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useRoster } from "./contexts/roster-context";
-import { CategoryComponent } from "./CategoryComponent";
 import { CombinedCategoryComponent } from "./CombinedCategoryComponent";
 
 interface ScanCategoryTextComponentProps {

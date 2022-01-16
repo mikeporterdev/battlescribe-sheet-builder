@@ -7,6 +7,10 @@ interface ModelSelectionComponentProps {
   modelProfiles: UnitProfile[];
 }
 
+export interface UnitProfileWithSave extends UnitProfile {
+  invulnerableSave?: number;
+}
+
 export const ModelSelectionComponent: React.FC<ModelSelectionComponentProps> = (
   props,
 ) => {
@@ -17,6 +21,7 @@ export const ModelSelectionComponent: React.FC<ModelSelectionComponentProps> = (
     .sort((a, b) => {
       return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
     });
+
   return (
     <>
       {!!profiles.length && (

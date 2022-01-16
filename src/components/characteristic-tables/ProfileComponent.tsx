@@ -1,23 +1,29 @@
 import * as React from "react";
-import { UnitProfile } from "../../services/types";
+import { UnitProfileWithSave } from "./ModelSelectionComponent";
 
 interface ProfileComponentProps {
-  profile: UnitProfile;
+  profile: UnitProfileWithSave;
 }
 
-export const ProfileComponent: React.FC<ProfileComponentProps> = (props) => {
+export const ProfileComponent: React.FC<ProfileComponentProps> = ({
+  profile,
+}) => {
+  console.log(profile.invulnerableSave);
+  const save = profile.invulnerableSave
+    ? `${profile.save}(${profile.invulnerableSave}++)`
+    : profile.save;
   return (
     <>
-      <td>{props.profile.name}</td>
-      <td>{props.profile.movement}</td>
-      <td>{props.profile.weaponSkill}</td>
-      <td>{props.profile.ballisticSkill}</td>
-      <td>{props.profile.strength}</td>
-      <td>{props.profile.toughness}</td>
-      <td>{props.profile.wounds}</td>
-      <td>{props.profile.attacks}</td>
-      <td>{props.profile.leadership}</td>
-      <td>{props.profile.save}</td>
+      <td>{profile.name}</td>
+      <td>{profile.movement}</td>
+      <td>{profile.weaponSkill}</td>
+      <td>{profile.ballisticSkill}</td>
+      <td>{profile.strength}</td>
+      <td>{profile.toughness}</td>
+      <td>{profile.wounds}</td>
+      <td>{profile.attacks}</td>
+      <td>{profile.leadership}</td>
+      <td>{save}</td>
     </>
   );
 };

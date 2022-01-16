@@ -1,34 +1,25 @@
 import * as React from "react";
-import { AbilityProfile, Profile, TypeName } from "../../services/types";
-import { isAbilityProfile } from "../../services/guards";
-import { sortByName } from "../../utils/sort-by-name";
+import { AbilityProfile } from "../../services/types";
 import { ScanCategoryTextComponent } from "../ScanCategoryTextComponent";
 
 interface AbilitiesTableComponentProps {
-  profiles: Profile<TypeName>[];
+  profiles: AbilityProfile[];
 }
 
 export const AbilitiesTableComponent: React.FC<AbilitiesTableComponentProps> =
   ({ profiles }) => {
-    const abilities = profiles
-      .filter((profile): profile is AbilityProfile => isAbilityProfile(profile))
-      .filter((val, id, array) => {
-        return array.map((i) => i.name).indexOf(val.name) == id;
-      })
-      .sort(sortByName);
-
     return (
       <>
-        {!!abilities.length && (
+        {!!profiles.length && (
           <table>
             <thead>
               <th>Abilities</th>
               <th>Description</th>
             </thead>
             <tbody>
-              {abilities.map((ability) => {
+              {profiles.map((ability) => {
                 return (
-                  <tr>
+                  <tr key={"ability" + ability.id}>
                     <td>{ability.name}</td>
                     <td>
                       <ScanCategoryTextComponent text={ability.description} />
