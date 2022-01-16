@@ -1,6 +1,6 @@
 import * as React from "react";
 import { PsychicPowerProfile } from "../../services/types";
-import { ScanCategoryTextComponent } from '../ScanCategoryTextComponent';
+import { ScanCategoryTextComponent } from "../ScanCategoryTextComponent";
 
 interface PsychicPowerTableComponentProps {
   profiles: PsychicPowerProfile[];
