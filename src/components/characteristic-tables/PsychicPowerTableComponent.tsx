@@ -1,5 +1,6 @@
 import * as React from "react";
 import { PsychicPowerProfile } from "../../services/types";
+import { ScanCategoryTextComponent } from '../ScanCategoryTextComponent';
 
 interface PsychicPowerTableComponentProps {
   profiles: PsychicPowerProfile[];
@@ -25,7 +26,7 @@ export const PsychicPowerTableComponent: React.FC<PsychicPowerTableComponentProp
                   <td>{psychicPower.name}</td>
                   <td>{psychicPower.warpCharge}</td>
                   <td>{psychicPower.range}</td>
-                  <td>{psychicPower.details}</td>
+                  <ScanCategoryTextComponent text={psychicPower.details} />
                 </tr>
               ))}
             </tbody>
