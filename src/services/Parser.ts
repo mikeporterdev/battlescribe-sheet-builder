@@ -44,8 +44,6 @@ export class Parser {
       throw error;
     }
 
-    console.log("BSRoster", JSON.stringify(bsRoster));
-
     const {
       $,
       costs: bsCosts,
@@ -64,9 +62,6 @@ export class Parser {
       categoryMap: this.calculateCategoryMap(forces),
     };
 
-    console.log("CATEGORYMAP", roster.categoryMap);
-
-    console.log("Roster", roster);
     return roster;
   }
 

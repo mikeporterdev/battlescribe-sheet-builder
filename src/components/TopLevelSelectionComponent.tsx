@@ -1,11 +1,11 @@
 import * as React from "react";
 import {
+  AbilityProfile,
   ExplosionProfile,
   Profile,
   PsychicPowerProfile,
   PsykerProfile,
   Selection,
-  SelectionType,
   TransportProfile,
   TypeName,
   UnitProfile,
@@ -21,6 +21,7 @@ import { SelectionInfoComponent } from "./SelectionInfoComponent";
 import { UnknownProfilesComponent } from "./characteristic-tables/UnknownProfilesComponent";
 import { PsychicPowerTableComponent } from "./characteristic-tables/PsychicPowerTableComponent";
 import {
+  isAbilityProfile,
   isPsychicPowerProfile,
   isPsykerProfile,
   isUnitProfile,
@@ -33,6 +34,7 @@ import { TransportTableComponent } from "./characteristic-tables/TransportTableC
 import { CostsComponent } from "./CostsComponent";
 import { KillSelectionButtonComponent } from "./controls/KillSelectionButtonComponent";
 import { UnitNameComponent } from "./UnitNameComponent";
+import { sortByName } from "../utils/sort-by-name";
 
 interface SelectionComponentProps {
   selection: Selection;
@@ -99,6 +101,29 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
     .sort((a, b) => {
       return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
     });
+  const abilities = allNestedProfiles
+    .filter((profile): profile is AbilityProfile => isAbilityProfile(profile))
+    .filter((val, id, array) => {
+      return array.map((i) => i.name).indexOf(val.name) == id;
+    })
+    .sort(sortByName);
+
+  const invulnRegex =
+    /^(This model has a|All models in this unit have a|Models in this unit have a) (\d)\+ invulnerable save/i;
+
+  const modelProfilesWithSaves = modelProfiles.map((profile) => {
+    const invulnSaves = abilities.filter((ability) =>
+      invulnRegex.test(ability.description),
+    );
+    if (!invulnSaves.length) {
+      return profile;
+    }
+    return {
+      ...profile,
+      invulnerableSave: invulnSaves[0]?.description.match(/\d+/)[0],
+    };
+  });
+
   return (
     <div className={"unit-container"} id={selection.id}>
       <h4 className={"top-unit-name"}>
@@ -110,10 +135,10 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
         <>
           <SelectionInfoComponent selection={selection} />
           <div>
-            <ModelSelectionComponent modelProfiles={modelProfiles} />
+            <ModelSelectionComponent modelProfiles={modelProfilesWithSaves} />
             <WoundTrackTableComponent profiles={woundTrackProfiles} />
             <WeaponsTableComponent profiles={weaponProfiles} />
-            <AbilitiesTableComponent profiles={allNestedProfiles} />
+            <AbilitiesTableComponent profiles={abilities} />
             <PsykerTableComponent profiles={psykerProfiles} />
             <PsychicPowerTableComponent profiles={psychicPowerProfiles} />
             <ExplodesTable explodesProfiles={explodesProfile} />

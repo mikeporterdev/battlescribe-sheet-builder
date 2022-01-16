@@ -19,8 +19,6 @@ export const CombinedCategoryComponent: React.FC<CombinedCategoryComponentProps>
       const matchingSelections = roster.forces
         .flatMap((force) => force.selections)
         .filter((selection) => {
-          console.log(selection.name);
-
           return categories.every((cat) => {
             const strings = getAllCategories(selection, []).map((i) =>
               i.name.toLowerCase(),
