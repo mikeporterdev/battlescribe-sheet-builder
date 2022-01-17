@@ -16,7 +16,6 @@ export const ProfileComponent: React.FC<ProfileComponentProps> = ({
   abilities,
   weapons,
 }) => {
-  console.log(profile.invulnerableSave);
   const save = profile.invulnerableSave
     ? `${profile.save}/${profile.invulnerableSave}++`
     : profile.save;
@@ -44,6 +43,7 @@ export const ProfileComponent: React.FC<ProfileComponentProps> = ({
           })}
         </td>
       )}
+      {abilities?.length === 0 && !!weapons.length && <td />}
       {!!weapons?.length && (
         <td>
           {weapons.map((weapon) => {

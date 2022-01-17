@@ -17,9 +17,6 @@ export interface UnitLookupTableComponentInput {
 export const UnitLookupTableComponent = ({
   rows,
 }: UnitLookupTableComponentInput) => {
-  console.log(rows);
-  // const modelProfiles = rows.map((i) => i.modelProfiles);
-  // return <ModelSelectionComponent modelProfiles={modelProfiles} />;
   return (
     <>
       {!!rows.length && (
