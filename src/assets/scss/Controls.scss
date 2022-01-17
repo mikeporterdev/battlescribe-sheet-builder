@@ -1,3 +1,9 @@
 .kill-button-container {
   float: right;
 }
+
+@media print{
+  .kill-button-container {
+    display: none;
+  }
+}

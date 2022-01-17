@@ -108,22 +108,6 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
     })
     .sort(sortByName);
 
-  const invulnRegex =
-    /^(This model has a|All models in this unit have a|Models in this unit have a) (\d)\+ invulnerable save/i;
-
-  const modelProfilesWithSaves = modelProfiles.map((profile) => {
-    const invulnSaves = abilities.filter((ability) =>
-      invulnRegex.test(ability.description),
-    );
-    if (!invulnSaves.length) {
-      return profile;
-    }
-    return {
-      ...profile,
-      invulnerableSave: invulnSaves[0]?.description.match(/\d+/)[0],
-    };
-  });
-
   return (
     <div className={"unit-container"} id={selection.id}>
       <h4 className={"top-unit-name"}>
@@ -135,7 +119,7 @@ export const TopLevelSelectionComponent: React.FC<SelectionComponentProps> = ({
         <>
           <SelectionInfoComponent selection={selection} />
           <div>
-            <ModelSelectionComponent modelProfiles={modelProfilesWithSaves} />
+            <ModelSelectionComponent modelProfiles={modelProfiles} />
             <WoundTrackTableComponent profiles={woundTrackProfiles} />
             <WeaponsTableWithFilterComponent profiles={weaponProfiles} />
             <AbilitiesTableComponent profiles={abilities} />

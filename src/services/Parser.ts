@@ -1,4 +1,5 @@
 import {
+  AbilityProfile,
   BSCategory,
   BSCharacteristic,
   BSCost,
@@ -17,8 +18,10 @@ import {
   Rule,
   Selection,
   TypeName,
+  UnitProfile,
 } from "./types";
 import {
+  isAbilityProfile,
   isBSCategory,
   isBSCost,
   isBSCostLimit,
@@ -27,11 +30,13 @@ import {
   isBSPublication,
   isBSRule,
   isBSSelection,
+  isUnitProfile,
 } from "./guards";
 import RawBufferLoader from "./loader/RawBufferLoader";
 import ProfileFactory from "./profile/ProfileFactory";
 import { v4 as uuidv4 } from "uuid";
 import { getAllCategories } from "../components/SelectionInfoComponent";
+import { getAllProfiles } from "../components/TopLevelSelectionComponent";
 
 export class Parser {
   public async parse(path: ArrayBuffer): Promise<Roster> {
@@ -62,6 +67,38 @@ export class Parser {
       categoryMap: this.calculateCategoryMap(forces),
     };
 
+    return this.postParseTransforms(roster);
+  }
+
+  private postParseTransforms(roster: Roster): Roster {
+    roster.forces.forEach((force) => {
+      force.selections.forEach((selection) => {
+        const allNestedProfiles = getAllProfiles(selection, []);
+        const modelProfiles = allNestedProfiles
+          .filter((i): i is UnitProfile => isUnitProfile(i))
+          .sort((a, b) => {
+            return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+          });
+        const abilities = allNestedProfiles
+          .filter((profile): profile is AbilityProfile =>
+            isAbilityProfile(profile),
+          )
+          .filter((val, id, array) => {
+            return array.map((i) => i.name).indexOf(val.name) == id;
+          });
+
+        const invulnRegex =
+          /^(This model has a|All models in this unit have a|Models in this unit have a) (\d)\+ invulnerable save/i;
+
+        modelProfiles.forEach((modelProfile) => {
+          const invulnSaves = abilities.filter((ability) =>
+            invulnRegex.test(ability.description),
+          );
+          modelProfile.invulnerableSave =
+            invulnSaves[0]?.description.match(/\d+/)[0];
+        });
+      });
+    });
     return roster;
   }
 

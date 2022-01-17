@@ -1,3 +1,9 @@
+@media print{
+  .roster-navigator {
+    display: none;
+  }
+}
+
 .roster-navigator {
   position: fixed;
   top: 16px;

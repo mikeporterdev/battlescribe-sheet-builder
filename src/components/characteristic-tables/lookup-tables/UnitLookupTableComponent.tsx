@@ -1,13 +1,64 @@
 import * as React from "react";
-import { UnitProfile } from "../../../services/types";
-import { ModelSelectionComponent } from "../ModelSelectionComponent";
+import {
+  AbilityProfile,
+  UnitProfile,
+  WeaponProfile,
+} from "../../../services/types";
+import { ProfileComponent } from "../ProfileComponent";
 
-interface UnitLookupTableComponentInput {
-  modelProfiles: UnitProfile[];
+export interface UnitLookupTableComponentInput {
+  rows: {
+    modelProfiles: UnitProfile[];
+    abilities: AbilityProfile[];
+    weapons: WeaponProfile[];
+  }[];
 }
 
 export const UnitLookupTableComponent = ({
-  modelProfiles,
+  rows,
 }: UnitLookupTableComponentInput) => {
-  return <ModelSelectionComponent modelProfiles={modelProfiles} />;
+  console.log(rows);
+  // const modelProfiles = rows.map((i) => i.modelProfiles);
+  // return <ModelSelectionComponent modelProfiles={modelProfiles} />;
+  return (
+    <>
+      {!!rows.length && (
+        <table>
+          <thead>
+            <tr>
+              <th>Models</th>
+              <th>M</th>
+              <th>WS</th>
+              <th>BS</th>
+              <th>S</th>
+              <th>T</th>
+              <th>W</th>
+              <th>A</th>
+              <th>Ld</th>
+              <th>Save</th>
+              <th>Abilities</th>
+              <th>Weapons</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <>
+                {row.modelProfiles.map((prof) => {
+                  return (
+                    <tr key={`model-lookup-table-${prof.id}`}>
+                      <ProfileComponent
+                        profile={prof}
+                        abilities={row.abilities}
+                        weapons={row.weapons}
+                      />
+                    </tr>
+                  );
+                })}
+              </>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </>
+  );
 };

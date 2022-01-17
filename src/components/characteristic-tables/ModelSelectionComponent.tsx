@@ -1,14 +1,10 @@
 import * as React from "react";
-import { AbilityProfile, UnitProfile } from "../../services/types";
+import { UnitProfile } from "../../services/types";
 import { ProfileComponent } from "./ProfileComponent";
 import "../../assets/scss/ModelTable.scss";
 
 interface ModelSelectionComponentProps {
   modelProfiles: UnitProfile[];
-}
-
-export interface UnitProfileWithSave extends UnitProfile {
-  invulnerableSave?: number;
 }
 
 export const ModelSelectionComponent: React.FC<ModelSelectionComponentProps> = (

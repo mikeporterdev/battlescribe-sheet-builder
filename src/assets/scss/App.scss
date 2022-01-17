@@ -10,17 +10,24 @@ body, html {
   font-family: helvetica, arial, sans-serif;
 
 }
-html,body,.container,#root {
+
+html, body, .container, #root {
   height: 100%;
-  font-size:12px
+  font-size: 12px;
+
+  @media print {
+    font-size: 10px
+  }
 }
+
 .container {
-  display:table;
+  display: table;
   width: 100%;
   margin-top: -50px;
   padding: 50px 0 0 0; /*set left/right padding according to needs*/
   box-sizing: border-box;
 }
+
 .row {
   display: table-row;
 }

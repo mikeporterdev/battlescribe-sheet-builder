@@ -1,16 +1,24 @@
 import * as React from "react";
-import { UnitProfileWithSave } from "./ModelSelectionComponent";
+import {
+  AbilityProfile,
+  UnitProfile,
+  WeaponProfile,
+} from "../../services/types";
 
 interface ProfileComponentProps {
-  profile: UnitProfileWithSave;
+  profile: UnitProfile;
+  abilities?: AbilityProfile[];
+  weapons?: WeaponProfile[];
 }
 
 export const ProfileComponent: React.FC<ProfileComponentProps> = ({
   profile,
+  abilities,
+  weapons,
 }) => {
   console.log(profile.invulnerableSave);
   const save = profile.invulnerableSave
-    ? `${profile.save}(${profile.invulnerableSave}++)`
+    ? `${profile.save}/${profile.invulnerableSave}++`
     : profile.save;
   return (
     <>
@@ -24,6 +32,30 @@ export const ProfileComponent: React.FC<ProfileComponentProps> = ({
       <td>{profile.attacks}</td>
       <td>{profile.leadership}</td>
       <td>{save}</td>
+      {!!abilities?.length && (
+        <td>
+          {abilities.map((ability) => {
+            return (
+              <>
+                {ability.name}
+                <br />
+              </>
+            );
+          })}
+        </td>
+      )}
+      {!!weapons?.length && (
+        <td>
+          {weapons.map((weapon) => {
+            return (
+              <>
+                {weapon.name}
+                <br />
+              </>
+            );
+          })}
+        </td>
+      )}
     </>
   );
 };

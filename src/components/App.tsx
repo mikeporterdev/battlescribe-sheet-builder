@@ -1,16 +1,15 @@
 import * as React from "react";
+import { useState } from "react";
 import { hot } from "react-hot-loader";
 import "./../assets/scss/App.scss";
 import { RosterComponent } from "./RosterComponent";
 import { RosterNavigatorComponent } from "./navigator/RosterNavigatorComponent";
 import { BrowserRouter } from "react-router-dom";
-import { FileUploadComponent } from "./FileUploadComponent";
 import { RosterContext } from "./contexts/roster-context";
-import { useState } from "react";
 import { Roster } from "../services/types";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { NoRosterPageComponent } from "../NoRosterPageComponent";
-import { RosterLookupComponent } from "./RosterLookupComponent";
+
 const App = () => {
   const [roster, setRoster] = useState<Roster>(undefined);
   const onClick = () => {
@@ -30,7 +29,7 @@ const App = () => {
             </div>
           )}
           {roster && <RosterComponent roster={roster} />}
-          {roster && <RosterLookupComponent roster={roster} />}
+          {/*{roster && <RosterLookupComponent roster={roster} />}*/}
           {roster && <RosterNavigatorComponent roster={roster} />}
         </div>
       </RosterContext.Provider>

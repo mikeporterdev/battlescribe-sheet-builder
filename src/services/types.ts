@@ -167,6 +167,7 @@ export interface UnitProfile extends Profile<TypeName.UNIT> {
   attacks: string;
   leadership: string;
   save: string;
+  invulnerableSave?: string;
 }
 
 export interface WeaponProfile extends Profile<TypeName.WEAPON> {
